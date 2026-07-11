@@ -55,11 +55,7 @@ export function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1"
         >
-          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary font-mono text-xs tracking-widest uppercase backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            {t("hero.available")}
-          </div>
-          
+
           <h1 className="text-5xl md:text-6xl xl:text-7xl font-bold font-heading tracking-tight text-foreground leading-[1.1] mb-6">
             {t("hero.greeting")}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient bg-[length:200%_auto]">BuirT</span>
