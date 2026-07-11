@@ -1,0 +1,222 @@
+{
+  "header": {
+    "home": "Trang Chủ",
+    "about": "Giới Thiệu",
+    "projects": "Dự Án",
+    "services": "Dịch Vụ",
+    "skills": "Kỹ Năng",
+    "contact": "Liên Hệ"
+  },
+  "hero": {
+    "available": "Sẵn Sàng Nhận Dự Án Mới",
+    "greeting": "Xin chào, tôi là",
+    "roles": [
+      "Lập Trình Viên Full-Stack",
+      "Kỹ Sư Xây Dựng Giải Pháp Công Nghệ",
+      "Chuyên Gia Tích Hợp AI",
+      "Kiến Trúc Sư Hệ Thống Doanh Nghiệp"
+    ],
+    "am": "Tôi là",
+    "description": "Xây dựng các ứng dụng web hiệu năng cao, hệ thống doanh nghiệp mạnh mẽ và các tích hợp AI thông minh nhằm giải quyết các vấn đề phức tạp.",
+    "explore": "Khám Phá Dự Án",
+    "talk": "Hợp Tác Ngay",
+    "stats": {
+      "experience": "Năm Kinh Nghiệm",
+      "projects": "Dự Án Hoàn Thành",
+      "dedication": "Sự Tận Tâm"
+    }
+  },
+  "about": {
+    "title": "Về Tôi",
+    "description": "Tôi là một Lập Trình Viên Full-Stack và Kỹ Sư Công Nghệ đầy đam mê đến từ Việt Nam, chuyên xây dựng các hệ thống doanh nghiệp và ứng dụng web hiện đại.",
+    "journey": "Hành Trình",
+    "journey_text": "Với nền tảng vững chắc cả về frontend và backend, tôi đã phát triển nhiều hệ thống toàn diện, từ nền tảng báo chí tích hợp AI cho đến các ứng dụng desktop phức tạp. Mục tiêu của tôi luôn là mang đến những giải pháp có khả năng mở rộng, hiệu quả và lấy người dùng làm trung tâm.",
+    "approach": "Phương Pháp Tiếp Cận",
+    "approach_text": "Tôi tin vào việc viết mã nguồn sạch, dễ bảo trì và luôn cập nhật những tiến bộ công nghệ mới nhất. Dù đó là việc tích hợp các mô hình ngôn ngữ lớn (LLMs) như Ollama vào quy trình doanh nghiệp hay tối ưu hóa truy vấn cơ sở dữ liệu, tôi luôn giải quyết mọi thách thức với tư duy đột phá.",
+    "stats": {
+      "experience": "Năm Kinh Nghiệm",
+      "projects": "Dự Án Đã Hoàn Thành",
+      "clients": "Khách Hàng Hài Lòng"
+    },
+    "download_cv": "Tải xuống CV"
+  },
+  "services": {
+    "badge": "Chuyên Môn Của Tôi",
+    "title": "Các Giải Pháp Cung Cấp",
+    "subtitle": "Cung cấp các giải pháp công nghệ toàn diện được tinh chỉnh để giải quyết thách thức kinh doanh và thúc đẩy chuyển đổi số.",
+    "items": {
+      "web": {
+        "title": "Ứng Dụng Web",
+        "description": "Web hiện đại, tối ưu di động với React.js, PHP và JavaScript. Hệ thống quản trị, Thương mại điện tử và Landing Pages."
+      },
+      "desktop": {
+        "title": "Ứng Dụng Desktop",
+        "description": "Phần mềm Windows chuẩn doanh nghiệp với C# .NET. Các hệ thống quản lý và xử lý dữ liệu thời gian thực."
+      },
+      "ai": {
+        "title": "Tích Hợp AI",
+        "description": "Tự động hóa thông minh, kiểm duyệt và phân tích nội dung sử dụng LLMs nội bộ như Ollama."
+      },
+      "db": {
+        "title": "Thiết Kế CSDL",
+        "description": "Kiến trúc cơ sở dữ liệu bảo mật, dễ mở rộng với SQL Server và MySQL. Tối ưu truy vấn & hiệu năng."
+      },
+      "fullstack": {
+        "title": "Hệ Thống Doanh Nghiệp",
+        "description": "Giải pháp kinh doanh trọn gói từ đầu đến cuối, kết hợp đồng bộ nền tảng Web và Desktop."
+      },
+      "iot": {
+        "title": "Dashboard Web IoT",
+        "description": "Hệ thống giám sát và cảnh báo phần cứng theo thời gian thực thông qua WebSockets và APIs."
+      }
+    }
+  },
+  "skills": {
+    "badge": "Kỹ Năng Cốt Lõi",
+    "title": "Kỹ Năng Kỹ Thuật",
+    "subtitle": "Tổng quan toàn diện về chuyên môn kỹ thuật và mức độ thành thạo trên nhiều lĩnh vực khác nhau.",
+    "categories": {
+      "frontend": "CÔNG NGHỆ FRONTEND",
+      "backend": "BACKEND & API",
+      "database": "CƠ SỞ DỮ LIỆU",
+      "desktop": "ỨNG DỤNG DESKTOP",
+      "ai": "AI & HỌC MÁY",
+      "tools": "CÔNG CỤ & QUY TRÌNH"
+    }
+  },
+  "projects": {
+    "title": "Dự Án Tiêu Biểu",
+    "subtitle": "Tuyển tập các sản phẩm xuất sắc nhất trong lĩnh vực phát triển web, ứng dụng desktop và tích hợp AI.",
+    "items": {
+      "newspay": {
+        "title": "Hệ Thống Tòa Soạn - Tính Nhuận Bút",
+        "type": "Web Full-Stack + Ứng dụng Desktop",
+        "status": "Hoàn thành (Đồ án tốt nghiệp)",
+        "description": "Hệ thống quản lý tòa soạn cấp doanh nghiệp kết hợp hai nền tảng Web & Desktop, nổi bật với tính năng kiểm duyệt nội dung bằng AI, tự động tính toán nhuận bút và quy trình duyệt bài đa cấp độ theo thời gian thực.",
+        "key_features": "Tính Năng Chính",
+        "features": [
+          "Quy trình xuất bản 5 bước (Phê duyệt tự động)",
+          "Kiểm duyệt nội dung bằng AI (Phát hiện đạo văn bằng Ollama + Qwen2.5)",
+          "Tính toán nhuận bút tự động tích hợp thuế",
+          "Bảng điều khiển trực tiếp với phân tích đa chiều",
+          "Phân quyền hệ thống với 6 vai trò",
+          "Đồng bộ dữ liệu 100%: Bản Web & Bản Desktop"
+        ],
+        "impact_metrics": "Chỉ Số Tác Động",
+        "metrics": [
+          "Giảm 80% thời gian xử lý thủ công",
+          "Độ chính xác tính thuế tự động đạt 99.9%",
+          "Đồng bộ hóa dữ liệu đa nền tảng 100%"
+        ],
+        "links": {
+          "web": "GitHub Web",
+          "desktop": "GitHub Desktop",
+          "demo": "Yêu Cầu Demo"
+        }
+      },
+      "glcinema": {
+        "title": "GLCinema - Nền Tảng Đặt Vé Xem Phim",
+        "type": "Ứng dụng Frontend Web",
+        "status": "Hoàn thành",
+        "description": "Giao diện frontend hiện đại và mang tính tương tác cao dành cho hệ thống đặt vé xem phim, được thiết kế với bố cục đáp ứng và trải nghiệm mượt mà.",
+        "key_features": "Tính Năng Chính",
+        "features": [
+          "Giao diện chọn ghế ngồi trực quan",
+          "Hiển thị lịch chiếu phim linh hoạt",
+          "Thiết kế đáp ứng cho di động và máy tính"
+        ],
+        "impact_metrics": "Công Nghệ Sử Dụng",
+        "metrics": [
+          "HTML, CSS, JS",
+          "Bố cục Đáp ứng (Responsive)",
+          "CSS Animations"
+        ],
+        "links": {
+          "web": "Xem Mã Nguồn GitHub",
+          "desktop": "",
+          "demo": ""
+        }
+      },
+      "webvatlieuxaydung": {
+        "title": "WebVatlieuxaydung - Thương Mại Điện Tử",
+        "type": "Ứng dụng Web Full-Stack",
+        "status": "Hoàn thành",
+        "description": "Một nền tảng thương mại điện tử toàn diện chuyên về vật liệu xây dựng, được xây dựng bằng PHP. Bao gồm quản lý kho hàng, giỏ hàng và quy trình thanh toán.",
+        "key_features": "Tính Năng Chính",
+        "features": [
+          "Hệ thống Giỏ hàng hoàn chỉnh",
+          "Danh mục Sản phẩm & Tìm kiếm",
+          "Trang Quản trị (Admin) quản lý kho"
+        ],
+        "impact_metrics": "Công Nghệ Sử Dụng",
+        "metrics": [
+          "PHP, MySQL",
+          "Bootstrap / Vanilla CSS",
+          "Quản lý Phiên (Session)"
+        ],
+        "links": {
+          "web": "Xem Mã Nguồn GitHub",
+          "desktop": "",
+          "demo": ""
+        }
+      },
+      "datnhethongcanhbaodien": {
+        "title": "Hệ Thống Cảnh Báo Điện (ĐATN)",
+        "type": "Dashboard Web IoT",
+        "status": "Hoàn thành",
+        "description": "Hệ thống giám sát và cảnh báo an toàn điện tử qua nền tảng web. Hiển thị các thông số theo thời gian thực và cảnh báo người dùng về các nguy cơ điện tiềm ẩn.",
+        "key_features": "Tính Năng Chính",
+        "features": [
+          "Bảng điều khiển giám sát thời gian thực",
+          "Cảnh báo nguy hiểm tự động",
+          "Giao diện đáp ứng mọi thiết bị"
+        ],
+        "impact_metrics": "Công Nghệ Sử Dụng",
+        "metrics": [
+          "HTML, CSS, JS",
+          "Tích hợp thiết bị IoT",
+          "WebSockets / APIs"
+        ],
+        "links": {
+          "web": "Xem Mã Nguồn GitHub",
+          "desktop": "",
+          "demo": ""
+        }
+      }
+    }
+  },
+  "contact": {
+    "title": "Liên Hệ",
+    "subtitle": "Bạn có dự án cần thực hiện hoặc muốn hợp tác? Tôi rất mong nhận được tin nhắn từ bạn.",
+    "info": {
+      "title": "Thông Tin Liên Hệ",
+      "description": "Hãy điền vào biểu mẫu bên dưới và tôi sẽ phản hồi trong vòng 24 giờ.",
+      "connect": "Kết Nối Với Tôi"
+    },
+    "form": {
+      "name": "Họ và Tên",
+      "name_placeholder": "Nguyễn Văn A",
+      "email": "Địa chỉ Email",
+      "email_placeholder": "email@example.com",
+      "phone": "Số Điện Thoại (Tùy chọn)",
+      "phone_placeholder": "090 123 4567",
+      "project": "Loại Dự Án (Tùy chọn)",
+      "project_placeholder": "Ví dụ: Ứng dụng Web, Tích hợp AI",
+      "budget": "Ngân Sách Dự Kiến (Tùy chọn)",
+      "budget_placeholder": "Ví dụ: 20 triệu - 50 triệu",
+      "message": "Nội Dung Tin Nhắn",
+      "message_placeholder": "Hãy mô tả về dự án của bạn...",
+      "submit": "Gửi Tin Nhắn",
+      "submitting": "Đang gửi..."
+    },
+    "messages": {
+      "success": "Gửi tin nhắn thành công! Tôi sẽ sớm liên hệ lại với bạn.",
+      "error": "Gửi tin nhắn thất bại. Vui lòng thử lại sau."
+    }
+  },
+  "footer": {
+    "rights": "Bản quyền đã được bảo hộ.",
+    "built_with": "Phát triển với",
+    "and": "và"
+  }
+}

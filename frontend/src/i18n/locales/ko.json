@@ -1,0 +1,222 @@
+{
+  "header": {
+    "home": "홈",
+    "about": "소개",
+    "projects": "프로젝트",
+    "services": "서비스",
+    "skills": "기술",
+    "contact": "연락처"
+  },
+  "hero": {
+    "available": "새로운 프로젝트 환영",
+    "greeting": "안녕하세요, 저는",
+    "roles": [
+      "풀스택 개발자",
+      "기술 솔루션 설계자",
+      "AI 통합 전문가",
+      "엔터프라이즈 시스템 아키텍트"
+    ],
+    "am": "저는",
+    "description": "복잡한 문제를 해결하기 위해 고성능 웹 애플리케이션, 강력한 엔터프라이즈 시스템, 지능형 AI 통합을 구축합니다.",
+    "explore": "프로젝트 보기",
+    "talk": "협업 문의",
+    "stats": {
+      "experience": "년의 경력",
+      "projects": "완료된 프로젝트",
+      "dedication": "헌신과 노력"
+    }
+  },
+  "about": {
+    "title": "소개",
+    "description": "저는 베트남 출신의 열정적인 풀스택 개발자이자 기술 솔루션 설계자로, 강력한 기업용 시스템과 현대적인 웹 애플리케이션을 구축하는 데 전문화되어 있습니다.",
+    "journey": "나의 여정",
+    "journey_text": "프론트엔드와 백엔드 기술 모두에 대한 탄탄한 기초를 바탕으로, AI 기반 편집 플랫폼부터 복잡한 데스크톱 애플리케이션에 이르기까지 포괄적인 시스템을 개발해 왔습니다. 저의 목표는 항상 확장 가능하고 효율적이며 사용자 중심의 솔루션을 제공하는 것입니다.",
+    "approach": "접근 방식",
+    "approach_text": "저는 깔끔하고 유지 관리하기 쉬운 코드를 작성하고 최신 기술 발전을 주도하는 것을 중요하게 생각합니다. Ollama와 같은 LLM을 비즈니스 워크플로우에 통합하거나 데이터베이스 쿼리를 최적화하는 일에 있어서 항상 문제 해결 중심의 마인드로 모든 과제에 임합니다.",
+    "stats": {
+      "experience": "년의 경력",
+      "projects": "완료된 프로젝트",
+      "clients": "만족한 고객"
+    },
+    "download_cv": "이력서 다운로드"
+  },
+  "services": {
+    "badge": "전문 분야",
+    "title": "제공하는 솔루션",
+    "subtitle": "복잡한 비즈니스 과제를 해결하고 디지털 전환을 주도하기 위해 맞춤화된 포괄적인 기술 솔루션을 제공합니다.",
+    "items": {
+      "web": {
+        "title": "웹 애플리케이션",
+        "description": "React.js, PHP 및 최신 JavaScript를 사용한 현대적이고 반응형인 웹 앱. 관리자 대시보드, 전자상거래 및 랜딩 페이지."
+      },
+      "desktop": {
+        "title": "데스크톱 애플리케이션",
+        "description": "C# .NET을 활용한 현대적인 UI의 엔터프라이즈급 Windows 애플리케이션. 비즈니스 소프트웨어 및 실시간 데이터 도구."
+      },
+      "ai": {
+        "title": "AI 통합",
+        "description": "Ollama와 같은 로컬 LLM을 사용한 지능형 자동화, 콘텐츠 검증 및 분석."
+      },
+      "db": {
+        "title": "데이터베이스 설계",
+        "description": "SQL Server 및 MySQL을 사용한 확장 가능하고 안전한 데이터베이스 아키텍처. 쿼리 최적화 및 성능 튜닝."
+      },
+      "fullstack": {
+        "title": "엔터프라이즈 시스템",
+        "description": "웹과 데스크톱 플랫폼을 결합한 다중 플랫폼 통합 엔드투엔드 비즈니스 솔루션."
+      },
+      "iot": {
+        "title": "IoT 웹 대시보드",
+        "description": "WebSockets 및 API를 통한 실시간 하드웨어 모니터링 및 경고 시스템."
+      }
+    }
+  },
+  "skills": {
+    "badge": "핵심 역량",
+    "title": "기술 스택",
+    "subtitle": "다양한 분야에 걸친 저의 기술적 전문성과 숙련도에 대한 포괄적인 개요입니다.",
+    "categories": {
+      "frontend": "프론트엔드 기술",
+      "backend": "백엔드 및 API",
+      "database": "데이터베이스 및 데이터",
+      "desktop": "데스크톱 앱",
+      "ai": "AI 및 머신러닝",
+      "tools": "도구 및 프로세스"
+    }
+  },
+  "projects": {
+    "title": "주요 프로젝트",
+    "subtitle": "웹 개발, 데스크톱 애플리케이션, AI 통합 분야에서의 제 최고의 작품을 소개합니다.",
+    "items": {
+      "newspay": {
+        "title": "편집 데스크 - 원고료 시스템",
+        "type": "풀스택 웹 + 데스크톱 애플리케이션",
+        "status": "완료 (졸업 작품)",
+        "description": "웹과 데스크톱 플랫폼을 결합한 엔터프라이즈급 뉴스룸 관리 시스템으로, AI 기반 콘텐츠 검증, 자동 원고료 계산, 실시간 다단계 승인 워크플로우가 특징입니다.",
+        "key_features": "주요 기능",
+        "features": [
+          "5단계 편집 워크플로우 (자동 승인 프로세스)",
+          "AI 콘텐츠 검증 (Ollama + Qwen2.5를 이용한 표절 감지)",
+          "세금 통합 자동 원고료 계산",
+          "다차원 분석 기능을 갖춘 실시간 대시보드",
+          "다중 역할 액세스 제어 (6개 역할)",
+          "100% 데이터 동기화: 웹 & 데스크톱 버전"
+        ],
+        "impact_metrics": "영향도 지표",
+        "metrics": [
+          "수동 처리 시간 80% 단축",
+          "자동 세금 계산 정확도 99.9%",
+          "플랫폼 간 데이터 동기화 100%"
+        ],
+        "links": {
+          "web": "웹 깃허브",
+          "desktop": "데스크톱 깃허브",
+          "demo": "데모 요청"
+        }
+      },
+      "glcinema": {
+        "title": "GLCinema - 영화 예매 플랫폼",
+        "type": "프론트엔드 웹 애플리케이션",
+        "status": "완료됨",
+        "description": "반응형 레이아웃과 부드러운 사용자 상호 작용으로 설계된 영화 티켓 예약 시스템을 위한 현대적이고 인터랙티브한 프론트엔드 인터페이스입니다.",
+        "key_features": "주요 기능",
+        "features": [
+          "대화형 좌석 선택 UI",
+          "동적 영화 일정 보기",
+          "모바일 및 데스크톱을 위한 반응형 디자인"
+        ],
+        "impact_metrics": "기술 스택",
+        "metrics": [
+          "HTML, CSS, JS",
+          "반응형 레이아웃",
+          "CSS 애니메이션"
+        ],
+        "links": {
+          "web": "GitHub에서 소스 보기",
+          "desktop": "",
+          "demo": ""
+        }
+      },
+      "webvatlieuxaydung": {
+        "title": "WebVatlieuxaydung - 건설 자재 전자 상거래",
+        "type": "풀스택 웹 애플리케이션",
+        "status": "완료됨",
+        "description": "PHP로 구축된 건축 자재 맞춤형 포괄적인 전자 상거래 플랫폼입니다. 재고 관리, 장바구니 및 사용자 결제 흐름이 포함됩니다.",
+        "key_features": "주요 기능",
+        "features": [
+          "완벽한 장바구니 시스템",
+          "제품 카테고리 및 검색",
+          "재고 관리를 위한 관리자 대시보드"
+        ],
+        "impact_metrics": "기술 스택",
+        "metrics": [
+          "PHP, MySQL",
+          "부트스트랩 / 바닐라 CSS",
+          "세션 관리"
+        ],
+        "links": {
+          "web": "GitHub에서 소스 보기",
+          "desktop": "",
+          "demo": ""
+        }
+      },
+      "datnhethongcanhbaodien": {
+        "title": "전기 경보 시스템 (졸업 작품)",
+        "type": "IoT 웹 대시보드",
+        "status": "완료됨",
+        "description": "전기 안전을 위한 웹 기반 모니터링 및 경고 시스템입니다. 실시간 매개변수를 표시하고 사용자에게 잠재적인 전기 위험을 경고합니다.",
+        "key_features": "주요 기능",
+        "features": [
+          "실시간 모니터링 대시보드",
+          "자동 위험 알림",
+          "반응형 인터페이스"
+        ],
+        "impact_metrics": "기술 스택",
+        "metrics": [
+          "HTML, CSS, JS",
+          "IoT 통합",
+          "WebSockets / API"
+        ],
+        "links": {
+          "web": "GitHub에서 소스 보기",
+          "desktop": "",
+          "demo": ""
+        }
+      }
+    }
+  },
+  "contact": {
+    "title": "연락하기",
+    "subtitle": "염두에 두고 있는 프로젝트가 있거나 협업 기회를 모색하고 싶으신가요? 여러분의 연락을 기다립니다.",
+    "info": {
+      "title": "연락처 정보",
+      "description": "아래 양식을 작성해 주시면 24시간 이내에 답변해 드리겠습니다.",
+      "connect": "연결하기"
+    },
+    "form": {
+      "name": "성명",
+      "name_placeholder": "홍길동",
+      "email": "이메일 주소",
+      "email_placeholder": "email@example.com",
+      "phone": "전화번호 (선택)",
+      "phone_placeholder": "010-1234-5678",
+      "project": "프로젝트 유형 (선택)",
+      "project_placeholder": "예: 웹 앱, AI 통합",
+      "budget": "예산 범위 (선택)",
+      "budget_placeholder": "예: 200만원 - 500만원",
+      "message": "메시지",
+      "message_placeholder": "프로젝트에 대해 알려주세요...",
+      "submit": "메시지 보내기",
+      "submitting": "전송 중..."
+    },
+    "messages": {
+      "success": "메시지가 성공적으로 전송되었습니다! 곧 연락드리겠습니다.",
+      "error": "메시지 전송에 실패했습니다. 나중에 다시 시도해 주세요."
+    }
+  },
+  "footer": {
+    "rights": "모든 권리 보유.",
+    "built_with": "제작 기술",
+    "and": "및"
+  }
+}
