@@ -96,7 +96,7 @@ function BentoCard({ service, t }: { service: typeof SERVICES_CONFIG[0], t: any 
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:shadow-xl group"
+      className="relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/50 bg-card/30 backdrop-blur-xl p-8 transition-all hover:-translate-y-1 hover:shadow-xl group"
     >
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"

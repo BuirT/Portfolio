@@ -1,13 +1,130 @@
-import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, MessageSquare, Terminal } from "lucide-react"
+import { useRef, useState, useEffect } from "react"
+import { motion, useScroll, useTransform, useMotionValue, useAnimationFrame, MotionValue } from "framer-motion"
+import { Terminal } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { ParticleBackground } from "../ParticleBackground"
+
+function OrbitalBadge({ 
+  children, 
+  baseAngle, 
+  offsetAngle,
+  colorClass, 
+  isDragging,
+  onPointerDown 
+}: { 
+  children: React.ReactNode, 
+  baseAngle: MotionValue<number>, 
+  offsetAngle: number,
+  colorClass: string, 
+  isDragging: boolean,
+  onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void
+}) {
+  // Squircle math to make the orbit perfectly hug the rounded rectangular frame!
+  const W = 54; // 54% width (keeps it slightly outside the border)
+  const H = 52; // 52% height
+  const n = 6;  // Sharpness of the corners (6 is a very good rounded rectangle)
+
+  const leftStyle = useTransform(baseAngle, (base) => {
+    const angle = base + offsetAngle;
+    const cosA = Math.cos(angle);
+    const sinA = Math.sin(angle);
+    const r = 1 / Math.pow( Math.pow(Math.abs(cosA/W), n) + Math.pow(Math.abs(sinA/H), n), 1/n );
+    return `calc(50% + ${r * cosA}%)`;
+  });
+
+  const topStyle = useTransform(baseAngle, (base) => {
+    const angle = base + offsetAngle;
+    const cosA = Math.cos(angle);
+    const sinA = Math.sin(angle);
+    const r = 1 / Math.pow( Math.pow(Math.abs(cosA/W), n) + Math.pow(Math.abs(sinA/H), n), 1/n );
+    return `calc(50% + ${r * sinA}%)`;
+  });
+
+  return (
+    <motion.div
+      onPointerDown={onPointerDown}
+      // Removed transition-all to prevent CSS transitions from fighting Framer Motion updates!
+      className={`absolute z-40 p-3 bg-background/80 backdrop-blur-md border rounded-xl touch-none transition-colors transition-shadow ${colorClass} ${isDragging ? "cursor-grabbing shadow-2xl scale-110" : "cursor-grab scale-100 shadow-xl"}`}
+      style={{
+        left: leftStyle,
+        top: topStyle,
+        x: "-50%",
+        y: "-50%",
+      }}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 export function Hero() {
   const { t } = useTranslation()
   const containerRef = useRef<HTMLElement>(null)
   
+  // Interactive Orbit State (Bypasses React re-renders for max FPS)
+  const baseAngle = useMotionValue(0);
+  const centerRef = useRef({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const [imageIndex, setImageIndex] = useState(0)
+
+  // Auto-orbit at 60/120fps using Framer Motion's useAnimationFrame
+  useAnimationFrame((_, delta) => {
+    if (!isDragging) {
+      // delta is time since last frame in ms. Base speed 0.0001 rad/ms
+      baseAngle.set(baseAngle.get() + 0.00015 * delta);
+    }
+  });
+
+  // Sync image index to baseAngle changes
+  useEffect(() => {
+    return baseAngle.on("change", (latest) => {
+      let normalized = latest % (Math.PI * 2);
+      if (normalized < 0) normalized += Math.PI * 2;
+      
+      let newIndex = 0;
+      if (normalized >= 0 && normalized < Math.PI / 2) newIndex = 0;
+      else if (normalized >= Math.PI / 2 && normalized < Math.PI) newIndex = 1;
+      else if (normalized >= Math.PI && normalized < 1.5 * Math.PI) newIndex = 2;
+      else newIndex = 3;
+
+      setImageIndex(prev => prev !== newIndex ? newIndex : prev);
+    });
+  }, [baseAngle]);
+
+  const createDragHandler = (offsetAngle: number) => (e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+    
+    // Find the center of the avatar figure
+    const container = e.currentTarget.parentElement;
+    if (container) {
+      const rect = container.getBoundingClientRect();
+      centerRef.current = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2
+      };
+    }
+
+    const handlePointerMove = (moveEvent: PointerEvent) => {
+      const dx = moveEvent.clientX - centerRef.current.x;
+      const dy = moveEvent.clientY - centerRef.current.y;
+      const newRawAngle = Math.atan2(dy, dx);
+      // Update motion value directly (no React re-render)
+      baseAngle.set(newRawAngle - offsetAngle);
+    };
+
+    const handlePointerUp = () => {
+      setIsDragging(false);
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', handlePointerUp);
+  };
+
+  const images = ["avt.png", "avt1.png", "avt2.png", "avt3.png"];
+
   // Parallax Scroll for the Avatar and Background Elements
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -17,21 +134,6 @@ export function Hero() {
   const avatarY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"])
   const opacityFade = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
-  const scrollTo = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      window.scrollTo({
-        top: (element as HTMLElement).offsetTop - 80,
-        behavior: "smooth",
-      })
-    }
-  }
-
-  // Floating animation for small tech accents
-  const floatAnim = {
-    y: [-10, 10, -10],
-    transition: { repeat: Infinity, duration: 4, ease: "easeInOut" as const }
-  }
 
   return (
     <section 
@@ -40,9 +142,10 @@ export function Hero() {
       className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-background py-20 lg:py-0"
     >
       {/* Dynamic Background */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,color-mix(in_oklch,var(--primary)_8%,transparent)_0%,transparent_70%)]" />
-      <div className="scanlines opacity-20" />
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px]" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,color-mix(in_oklch,var(--primary)_8%,transparent)_0%,transparent_70%)] pointer-events-none" />
+      <ParticleBackground />
+      <div className="scanlines opacity-20 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
 
       {/* Main Grid Layout: Left Info - Center Avatar - Right Info */}
       <div className="w-full px-6 lg:px-12 xl:px-20 max-w-[1920px] relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
@@ -61,23 +164,6 @@ export function Hero() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient bg-[length:200%_auto]">BuirT</span>
           </h1>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
-            <Button 
-              size="lg" 
-              className="gap-2 h-14 px-8 rounded-full border border-primary bg-primary hover:bg-primary/80 text-primary-foreground shadow-[0_0_20px_color-mix(in_oklch,var(--primary)_40%,transparent)] transition-all duration-300"
-              onClick={() => scrollTo("#projects")}
-            >
-              {t("hero.explore")} <ArrowRight className="h-5 w-5" />
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="gap-2 h-14 px-8 rounded-full border-border/50 bg-background/50 hover:bg-muted transition-all duration-300 backdrop-blur-md"
-              onClick={() => scrollTo("#contact")}
-            >
-              <MessageSquare className="h-5 w-5" /> {t("hero.talk")}
-            </Button>
-          </div>
         </motion.header>
 
         {/* CENTER COLUMN: The Avatar */}
@@ -92,26 +178,44 @@ export function Hero() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="relative z-20 w-[260px] h-[340px] md:w-[320px] md:h-[420px] lg:w-[400px] lg:h-[520px] flex items-center justify-center group m-0"
           >
-            {/* Styled Rounded Rectangle Frame for Avatar (Shows more of the photo) */}
+            {/* Styled Rounded Rectangle Frame for Avatar */}
             <div className="relative w-full h-full rounded-[2rem] md:rounded-[3rem] border-[6px] border-background overflow-hidden bg-muted shadow-[0_0_50px_color-mix(in_oklch,var(--primary)_30%,transparent)] transition-all duration-700 group-hover:shadow-[0_0_80px_color-mix(in_oklch,var(--primary)_60%,transparent)]">
-              <img 
-                src={`${import.meta.env.BASE_URL}avt.png`} 
-                alt="BuirT Avatar" 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
+              {/* Render 4 images and only fade opacity based on imageIndex for smooth crossfade */}
+              {images.map((imgSrc, idx) => (
+                <img 
+                  key={imgSrc}
+                  src={`${import.meta.env.BASE_URL}${imgSrc}`} 
+                  alt={`BuirT Avatar ${idx}`} 
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:scale-110 ${idx === imageIndex ? 'opacity-100' : 'opacity-0'}`}
+                />
+              ))}
+              
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-accent/10 mix-blend-overlay pointer-events-none" />
               
               {/* Inner glowing ring */}
               <div className="absolute inset-0 z-30 rounded-[2rem] md:rounded-[3rem] border border-white/20 animate-pulse pointer-events-none" />
             </div>
 
-            {/* Orbiting Tech Accents */}
-            <motion.div animate={floatAnim} className="absolute -left-4 top-1/4 p-3 bg-background/80 backdrop-blur-md border border-primary/30 rounded-xl shadow-xl">
-              <Terminal className="w-5 h-5 text-primary" />
-            </motion.div>
-            <motion.div animate={{ ...floatAnim, transition: { ...floatAnim.transition, delay: 1 } }} className="absolute -right-4 bottom-1/4 p-3 bg-background/80 backdrop-blur-md border border-accent/30 rounded-xl shadow-xl">
-              <span className="text-accent font-bold font-mono">&lt;/&gt;</span>
-            </motion.div>
+            {/* Orbiting Tech Accents - ORBITAL DRAG */}
+            <OrbitalBadge 
+              baseAngle={baseAngle}
+              offsetAngle={Math.PI} // 180 degrees offset (Left side)
+              colorClass="border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.5)] hover:shadow-[0_0_25px_rgba(6,182,212,0.8)] text-cyan-400"
+              isDragging={isDragging}
+              onPointerDown={createDragHandler(Math.PI)}
+            >
+              <Terminal className="w-6 h-6" />
+            </OrbitalBadge>
+            
+            <OrbitalBadge 
+              baseAngle={baseAngle}
+              offsetAngle={0} // 0 degrees offset (Right side)
+              colorClass="border-fuchsia-500/50 shadow-[0_0_15px_rgba(217,70,239,0.5)] hover:shadow-[0_0_25px_rgba(217,70,239,0.8)] text-fuchsia-400"
+              isDragging={isDragging}
+              onPointerDown={createDragHandler(0)}
+            >
+              <span className="font-bold font-mono text-lg">&lt;/&gt;</span>
+            </OrbitalBadge>
           </motion.figure>
         </div>
 
