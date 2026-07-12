@@ -89,8 +89,8 @@ function BentoCard({ service, t }: { service: typeof SERVICES_CONFIG[0], t: any 
   }
 
   return (
-    <div
-      ref={divRef}
+    <article
+      ref={divRef as any}
       onMouseMove={handleMouseMove}
       onFocus={handleFocus}
       onBlur={handleBlur}
@@ -127,15 +127,15 @@ function BentoCard({ service, t }: { service: typeof SERVICES_CONFIG[0], t: any 
           {t(`services.items.${service.key}.description`)}
         </p>
 
-        <div className="flex flex-wrap gap-2 pt-6 mt-auto">
+        <ul className="flex flex-wrap gap-2 pt-6 mt-auto m-0 p-0 list-none">
           {service.tech.map((t) => (
-            <span key={t} className="text-xs font-medium text-muted-foreground bg-muted/50 border border-border/50 px-3 py-1.5 rounded-full backdrop-blur-sm">
+            <li key={t} className="text-xs font-medium text-muted-foreground bg-muted/50 border border-border/50 px-3 py-1.5 rounded-full backdrop-blur-sm">
               {t}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
+    </article>
   )
 }
 
@@ -161,9 +161,9 @@ export function Services() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto m-0 p-0 list-none">
           {SERVICES_CONFIG.map((service, index) => (
-            <motion.div 
+            <motion.li 
               key={service.key} 
               className={service.bentoClass}
               initial={{ opacity: 0, y: 30 }}
@@ -172,9 +172,9 @@ export function Services() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <BentoCard service={service} t={t} />
-            </motion.div>
+            </motion.li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )

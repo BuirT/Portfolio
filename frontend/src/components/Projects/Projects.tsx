@@ -62,13 +62,13 @@ export function Projects() {
           </p>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto space-y-12">
+        <ul className="max-w-5xl mx-auto space-y-12 m-0 p-0 list-none">
           {PROJECTS_CONFIG.map((project, index) => {
             const features = t(`projects.items.${project.key}.features`, { returnObjects: true }) as string[]
             const metrics = t(`projects.items.${project.key}.metrics`, { returnObjects: true }) as string[]
 
             return (
-              <motion.div
+              <motion.li
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export function Projects() {
                 transition={{ duration: 0.6, delay: index * 0.2 }}
               >
                 <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-border bg-card">
-                  <div className="flex flex-col lg:flex-row">
+                  <article className="flex flex-col lg:flex-row">
                     {/* Left Column - Details */}
                     <div className="p-8 lg:w-2/3 flex flex-col justify-between">
                       <div>
@@ -160,12 +160,12 @@ export function Projects() {
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </Card>
-              </motion.div>
+              </motion.li>
             )
           })}
-        </div>
+        </ul>
       </div>
     </section>
   )

@@ -48,7 +48,7 @@ export function Hero() {
       <div className="w-full px-6 lg:px-12 xl:px-20 max-w-[1920px] relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
         
         {/* LEFT COLUMN: Greeting & CTA */}
-        <motion.div 
+        <motion.header 
           style={{ opacity: opacityFade }}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -78,19 +78,19 @@ export function Hero() {
               <MessageSquare className="h-5 w-5" /> {t("hero.talk")}
             </Button>
           </div>
-        </motion.div>
+        </motion.header>
 
         {/* CENTER COLUMN: The Avatar */}
         <div className="flex-[1.2] flex justify-center items-center relative order-1 lg:order-2">
           {/* Intense Glowing Backdrop for Avatar */}
           <div className="absolute w-[300px] h-[300px] md:w-[450px] md:h-[450px] bg-primary/20 rounded-full mix-blend-screen filter blur-[80px] animate-pulse pointer-events-none" />
           
-          <motion.div 
+          <motion.figure 
             style={{ y: avatarY }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="relative z-20 w-[260px] h-[340px] md:w-[320px] md:h-[420px] lg:w-[400px] lg:h-[520px] flex items-center justify-center group"
+            className="relative z-20 w-[260px] h-[340px] md:w-[320px] md:h-[420px] lg:w-[400px] lg:h-[520px] flex items-center justify-center group m-0"
           >
             {/* Styled Rounded Rectangle Frame for Avatar (Shows more of the photo) */}
             <div className="relative w-full h-full rounded-[2rem] md:rounded-[3rem] border-[6px] border-background overflow-hidden bg-muted shadow-[0_0_50px_color-mix(in_oklch,var(--primary)_30%,transparent)] transition-all duration-700 group-hover:shadow-[0_0_80px_color-mix(in_oklch,var(--primary)_60%,transparent)]">
@@ -112,7 +112,7 @@ export function Hero() {
             <motion.div animate={{ ...floatAnim, transition: { ...floatAnim.transition, delay: 1 } }} className="absolute -right-4 bottom-1/4 p-3 bg-background/80 backdrop-blur-md border border-accent/30 rounded-xl shadow-xl">
               <span className="text-accent font-bold font-mono">&lt;/&gt;</span>
             </motion.div>
-          </motion.div>
+          </motion.figure>
         </div>
 
         {/* RIGHT COLUMN: Description & Stats */}
@@ -130,20 +130,20 @@ export function Hero() {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-wrap justify-center lg:justify-end gap-6 text-sm font-mono text-muted-foreground">
+          <dl className="mt-8 flex flex-wrap justify-center lg:justify-end gap-6 text-sm font-mono text-muted-foreground m-0 p-0">
             <div className="flex flex-col items-center lg:items-end gap-1">
-              <span className="text-2xl font-bold text-foreground">3+</span>
-              <span>{t("hero.stats.experience")}</span>
+              <dt className="text-2xl font-bold text-foreground">3+</dt>
+              <dd className="m-0">{t("hero.stats.experience")}</dd>
             </div>
             <div className="flex flex-col items-center lg:items-end gap-1">
-              <span className="text-2xl font-bold text-foreground">15+</span>
-              <span>{t("hero.stats.projects")}</span>
+              <dt className="text-2xl font-bold text-foreground">15+</dt>
+              <dd className="m-0">{t("hero.stats.projects")}</dd>
             </div>
             <div className="flex flex-col items-center lg:items-end gap-1">
-              <span className="text-2xl font-bold text-primary">100%</span>
-              <span>{t("hero.stats.dedication")}</span>
+              <dt className="text-2xl font-bold text-primary">100%</dt>
+              <dd className="m-0">{t("hero.stats.dedication")}</dd>
             </div>
-          </div>
+          </dl>
         </motion.div>
 
       </div>

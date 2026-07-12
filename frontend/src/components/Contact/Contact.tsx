@@ -75,12 +75,12 @@ export function Contact() {
 
         <div className="grid lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
           {/* Contact Info */}
-          <motion.div
+          <motion.address
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-1 space-y-6"
+            className="lg:col-span-1 space-y-6 not-italic"
           >
             <Card className="border-border bg-card">
               <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
@@ -124,22 +124,28 @@ export function Contact() {
 
             <div className="pt-6 border-t border-border">
               <h3 className="font-bold mb-4 text-center">{t("contact.info.connect")}</h3>
-              <div className="flex justify-center gap-4">
-                <a href="mailto:bui241204@gmail.com" className={buttonVariants({ variant: "outline", size: "icon" })}>
-                  <Mail className="h-5 w-5" />
-                  <span className="sr-only">Email</span>
-                </a>
-                <a href="https://github.com/BuirT" target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", size: "icon" })}>
-                  <Github className="h-5 w-5" />
-                  <span className="sr-only">GitHub</span>
-                </a>
-                <a href="https://instagram.com/_buirt_" target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", size: "icon" })}>
-                  <Instagram className="h-5 w-5" />
-                  <span className="sr-only">Instagram</span>
-                </a>
-              </div>
+              <ul className="flex justify-center gap-4 m-0 p-0 list-none">
+                <li>
+                  <a href="mailto:bui241204@gmail.com" className={buttonVariants({ variant: "outline", size: "icon" })}>
+                    <Mail className="h-5 w-5" />
+                    <span className="sr-only">Email</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/BuirT" target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", size: "icon" })}>
+                    <Github className="h-5 w-5" />
+                    <span className="sr-only">GitHub</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://instagram.com/_buirt_" target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", size: "icon" })}>
+                    <Instagram className="h-5 w-5" />
+                    <span className="sr-only">Instagram</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-          </motion.div>
+          </motion.address>
 
           {/* Contact Form */}
           <motion.div

@@ -74,13 +74,13 @@ function SkillBar({ name, level }: { name: string; level: number }) {
   }, [isInView, level])
 
   return (
-    <div ref={ref} className="mb-4">
+    <li ref={ref as any} className="mb-4">
       <div className="flex justify-between mb-1.5">
         <span className="text-sm font-medium text-foreground/80">{name}</span>
         <span className="text-sm text-muted-foreground">{progress}%</span>
       </div>
       <Progress value={progress} className="h-2 transition-all duration-1000 ease-out bg-muted border border-border/30" />
-    </div>
+    </li>
   )
 }
 
@@ -98,8 +98,8 @@ function BentoSkillCard({ category, title }: { category: typeof SKILLS_CONFIG[0]
   }
 
   return (
-    <div
-      ref={divRef}
+    <article
+      ref={divRef as any}
       onMouseMove={handleMouseMove}
       onFocus={() => { setIsFocused(true); setOpacity(1) }}
       onBlur={() => { setIsFocused(false); setOpacity(0) }}
@@ -127,13 +127,13 @@ function BentoSkillCard({ category, title }: { category: typeof SKILLS_CONFIG[0]
           <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
           {title}
         </h3>
-        <div className="space-y-4">
+        <ul className="space-y-4 m-0 p-0 list-none">
           {category.skills.map((skill) => (
             <SkillBar key={skill.name} name={skill.name} level={skill.level} />
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
+    </article>
   )
 }
 
@@ -159,9 +159,9 @@ export function Skills() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto m-0 p-0 list-none">
           {SKILLS_CONFIG.map((category, index) => (
-            <motion.div
+            <motion.li
               key={category.key}
               className={category.bentoClass}
               initial={{ opacity: 0, y: 20 }}
@@ -173,9 +173,9 @@ export function Skills() {
                 category={category} 
                 title={t(`skills.categories.${category.key}`)} 
               />
-            </motion.div>
+            </motion.li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )

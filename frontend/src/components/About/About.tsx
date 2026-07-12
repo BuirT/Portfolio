@@ -36,7 +36,7 @@ export function About() {
 
         <div className="grid md:grid-cols-2 gap-12 items-start max-w-5xl mx-auto">
           {/* Text Content */}
-          <motion.div
+          <motion.article
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -46,12 +46,12 @@ export function About() {
             <p className="text-muted-foreground mb-6 leading-relaxed">
               {t("about.journey_text")}
             </p>
-            
+
             <h3 className="text-2xl font-bold mb-4 mt-8">{t("about.approach")}</h3>
             <p className="text-muted-foreground mb-8 leading-relaxed">
               {t("about.approach_text")}
             </p>
-          </motion.div>
+          </motion.article>
 
           {/* Stats and Badges */}
           <motion.div
@@ -61,16 +61,16 @@ export function About() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="space-y-6"
           >
-            <div className="grid grid-cols-2 gap-4">
+            <dl className="grid grid-cols-2 gap-4 m-0 p-0">
               {stats.map((stat, index) => (
                 <Card key={index} className="border-none shadow-sm bg-background/50 backdrop-blur">
                   <CardContent className="p-6 text-center">
-                    <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                    <div className="text-sm font-medium text-muted-foreground">{stat.label}</div>
+                    <dt className="text-4xl font-bold text-primary mb-2">{stat.value}</dt>
+                    <dd className="text-sm font-medium text-muted-foreground m-0">{stat.label}</dd>
                   </CardContent>
                 </Card>
               ))}
-            </div>
+            </dl>
 
             <Card className="border-none shadow-sm bg-background/50 backdrop-blur">
               <CardContent className="p-6">

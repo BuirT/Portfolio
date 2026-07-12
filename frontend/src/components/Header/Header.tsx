@@ -75,25 +75,28 @@ export function Header() {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault()
-                scrollTo(item.href)
-              }}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300",
-                activeSection === item.href.substring(1)
-                  ? "text-primary after:w-full"
-                  : "text-muted-foreground after:w-0 hover:after:w-full"
-              )}
-            >
-              {item.label}
-            </a>
-          ))}
+        <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-6">
+          <ul className="flex items-center gap-6 m-0 p-0 list-none">
+            {NAV_ITEMS.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollTo(item.href)
+                  }}
+                  className={cn(
+                    "text-sm font-medium transition-colors hover:text-primary relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300",
+                    activeSection === item.href.substring(1)
+                      ? "text-primary after:w-full"
+                      : "text-muted-foreground after:w-0 hover:after:w-full"
+                  )}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
           <div className="flex items-center gap-2 border-l pl-6 border-border">
             <LanguageSwitcher />
             <ThemeToggle />
@@ -117,26 +120,29 @@ export function Header() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 right-0 bg-background border-b border-border p-4 flex flex-col gap-4 shadow-lg animate-in slide-in-from-top-2">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault()
-                scrollTo(item.href)
-              }}
-              className={cn(
-                "px-4 py-3 rounded-md text-sm font-medium transition-colors",
-                activeSection === item.href.substring(1)
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
+        <nav aria-label="Mobile Navigation" className="md:hidden absolute top-20 left-0 right-0 bg-background border-b border-border p-4 flex flex-col gap-4 shadow-lg animate-in slide-in-from-top-2">
+          <ul className="flex flex-col gap-4 m-0 p-0 list-none">
+            {NAV_ITEMS.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollTo(item.href)
+                  }}
+                  className={cn(
+                    "block px-4 py-3 rounded-md text-sm font-medium transition-colors",
+                    activeSection === item.href.substring(1)
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       )}
     </header>
   )
