@@ -4,18 +4,18 @@ import { Terminal } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { ParticleBackground } from "../ParticleBackground"
 
-function OrbitalBadge({ 
-  children, 
-  baseAngle, 
+function OrbitalBadge({
+  children,
+  baseAngle,
   offsetAngle,
-  colorClass, 
+  colorClass,
   isDragging,
-  onPointerDown 
-}: { 
-  children: React.ReactNode, 
-  baseAngle: MotionValue<number>, 
+  onPointerDown
+}: {
+  children: React.ReactNode,
+  baseAngle: MotionValue<number>,
   offsetAngle: number,
-  colorClass: string, 
+  colorClass: string,
   isDragging: boolean,
   onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void
 }) {
@@ -28,7 +28,7 @@ function OrbitalBadge({
     const angle = base + offsetAngle;
     const cosA = Math.cos(angle);
     const sinA = Math.sin(angle);
-    const r = 1 / Math.pow( Math.pow(Math.abs(cosA/W), n) + Math.pow(Math.abs(sinA/H), n), 1/n );
+    const r = 1 / Math.pow(Math.pow(Math.abs(cosA / W), n) + Math.pow(Math.abs(sinA / H), n), 1 / n);
     return `calc(50% + ${r * cosA}%)`;
   });
 
@@ -36,7 +36,7 @@ function OrbitalBadge({
     const angle = base + offsetAngle;
     const cosA = Math.cos(angle);
     const sinA = Math.sin(angle);
-    const r = 1 / Math.pow( Math.pow(Math.abs(cosA/W), n) + Math.pow(Math.abs(sinA/H), n), 1/n );
+    const r = 1 / Math.pow(Math.pow(Math.abs(cosA / W), n) + Math.pow(Math.abs(sinA / H), n), 1 / n);
     return `calc(50% + ${r * sinA}%)`;
   });
 
@@ -60,7 +60,7 @@ function OrbitalBadge({
 export function Hero() {
   const { t } = useTranslation()
   const containerRef = useRef<HTMLElement>(null)
-  
+
   // Interactive Orbit State (Bypasses React re-renders for max FPS)
   const baseAngle = useMotionValue(0);
   const centerRef = useRef({ x: 0, y: 0 })
@@ -80,7 +80,7 @@ export function Hero() {
     return baseAngle.on("change", (latest) => {
       let normalized = latest % (Math.PI * 2);
       if (normalized < 0) normalized += Math.PI * 2;
-      
+
       let newIndex = 0;
       if (normalized >= 0 && normalized < Math.PI / 2) newIndex = 0;
       else if (normalized >= Math.PI / 2 && normalized < Math.PI) newIndex = 1;
@@ -94,7 +94,7 @@ export function Hero() {
   const createDragHandler = (offsetAngle: number) => (e: React.PointerEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(true);
-    
+
     // Find the center of the avatar figure
     const container = e.currentTarget.parentElement;
     if (container) {
@@ -123,7 +123,7 @@ export function Hero() {
     window.addEventListener('pointerup', handlePointerUp);
   };
 
-  const images = ["avt.png", "avt1.png", "avt2.png", "avt3.png"];
+  const images = ["avt.png", "avt1.png", "avt2.png", "avt3.png"].map(img => `${import.meta.env.BASE_URL}images/avatars/${img}`);
 
   // Parallax Scroll for the Avatar and Background Elements
   const { scrollYProgress } = useScroll({
@@ -136,9 +136,9 @@ export function Hero() {
 
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      id="home" 
+      id="home"
       className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-background py-20 lg:py-0"
     >
       {/* Dynamic Background */}
@@ -149,9 +149,9 @@ export function Hero() {
 
       {/* Main Grid Layout: Left Info - Center Avatar - Right Info */}
       <div className="w-full px-6 lg:px-12 xl:px-20 max-w-[1920px] relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
-        
+
         {/* LEFT COLUMN: Greeting & CTA */}
-        <motion.header 
+        <motion.header
           style={{ opacity: opacityFade }}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -170,8 +170,8 @@ export function Hero() {
         <div className="flex-[1.2] flex justify-center items-center relative order-1 lg:order-2">
           {/* Intense Glowing Backdrop for Avatar */}
           <div className="absolute w-[300px] h-[300px] md:w-[450px] md:h-[450px] bg-primary/20 rounded-full mix-blend-screen filter blur-[80px] animate-pulse pointer-events-none" />
-          
-          <motion.figure 
+
+          <motion.figure
             style={{ y: avatarY }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -182,22 +182,22 @@ export function Hero() {
             <div className="relative w-full h-full rounded-[2rem] md:rounded-[3rem] border-[6px] border-background overflow-hidden bg-muted shadow-[0_0_50px_color-mix(in_oklch,var(--primary)_30%,transparent)] transition-all duration-700 group-hover:shadow-[0_0_80px_color-mix(in_oklch,var(--primary)_60%,transparent)]">
               {/* Render 4 images and only fade opacity based on imageIndex for smooth crossfade */}
               {images.map((imgSrc, idx) => (
-                <img 
+                <img
                   key={imgSrc}
-                  src={`${import.meta.env.BASE_URL}${imgSrc}`} 
-                  alt={`BuirT Avatar ${idx}`} 
+                  src={imgSrc}
+                  alt={`BuirT Avatar ${idx}`}
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:scale-110 ${idx === imageIndex ? 'opacity-100' : 'opacity-0'}`}
                 />
               ))}
-              
+
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-accent/10 mix-blend-overlay pointer-events-none" />
-              
+
               {/* Inner glowing ring */}
               <div className="absolute inset-0 z-30 rounded-[2rem] md:rounded-[3rem] border border-white/20 animate-pulse pointer-events-none" />
             </div>
 
             {/* Orbiting Tech Accents - ORBITAL DRAG */}
-            <OrbitalBadge 
+            <OrbitalBadge
               baseAngle={baseAngle}
               offsetAngle={Math.PI} // 180 degrees offset (Left side)
               colorClass="border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.5)] hover:shadow-[0_0_25px_rgba(6,182,212,0.8)] text-cyan-400"
@@ -206,8 +206,8 @@ export function Hero() {
             >
               <Terminal className="w-6 h-6" />
             </OrbitalBadge>
-            
-            <OrbitalBadge 
+
+            <OrbitalBadge
               baseAngle={baseAngle}
               offsetAngle={0} // 0 degrees offset (Right side)
               colorClass="border-fuchsia-500/50 shadow-[0_0_15px_rgba(217,70,239,0.5)] hover:shadow-[0_0_25px_rgba(217,70,239,0.8)] text-fuchsia-400"
@@ -220,7 +220,7 @@ export function Hero() {
         </div>
 
         {/* RIGHT COLUMN: Description & Stats */}
-        <motion.div 
+        <motion.div
           style={{ opacity: opacityFade }}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}

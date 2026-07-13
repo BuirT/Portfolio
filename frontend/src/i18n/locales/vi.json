@@ -87,6 +87,7 @@
   "projects": {
     "title": "Dự Án Tiêu Biểu",
     "subtitle": "Tuyển tập các sản phẩm xuất sắc nhất trong lĩnh vực phát triển web, ứng dụng desktop và tích hợp AI.",
+    "view_details": "Xem chi tiết",
     "items": {
       "newspay": {
         "title": "Hệ Thống Tòa Soạn - Tính Nhuận Bút",
