@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useMotionValue, useAnimationFrame, MotionValue } from "framer-motion"
-import { Terminal } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { ParticleBackground } from "../ParticleBackground"
 
@@ -8,14 +7,12 @@ function OrbitalBadge({
   children,
   baseAngle,
   offsetAngle,
-  colorClass,
   isDragging,
   onPointerDown
 }: {
   children: React.ReactNode,
   baseAngle: MotionValue<number>,
   offsetAngle: number,
-  colorClass: string,
   isDragging: boolean,
   onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void
 }) {
@@ -40,14 +37,20 @@ function OrbitalBadge({
     return `calc(50% + ${r * sinA}%)`;
   });
 
+  const rotateStyle = useTransform(baseAngle, (base) => {
+    const angle = base + offsetAngle;
+    // Top-down car points UP initially. To make it drive clockwise, we add 180 degrees to the orbit angle.
+    return `${(angle * 180) / Math.PI + 180}deg`;
+  });
+
   return (
     <motion.div
       onPointerDown={onPointerDown}
-      // Removed transition-all to prevent CSS transitions from fighting Framer Motion updates!
-      className={`absolute z-40 p-3 bg-background/80 backdrop-blur-md border rounded-xl touch-none transition-colors transition-shadow ${colorClass} ${isDragging ? "cursor-grabbing shadow-2xl scale-110" : "cursor-grab scale-100 shadow-xl"}`}
+      className={`absolute z-40 touch-none transition-transform ${isDragging ? "cursor-grabbing scale-125" : "cursor-grab scale-100"}`}
       style={{
         left: leftStyle,
         top: topStyle,
+        rotate: rotateStyle,
         x: "-50%",
         y: "-50%",
       }}
@@ -56,6 +59,75 @@ function OrbitalBadge({
     </motion.div>
   )
 }
+
+const TopDownJdmCar = ({ className, color = "#06b6d4" }: { className?: string, color?: string }) => (
+  <svg viewBox="0 0 100 200" fill="none" className={className} style={{ filter: `drop-shadow(0 15px 25px ${color}66)` }}>
+    {/* Tires */}
+    <rect x="12" y="30" width="12" height="30" rx="4" fill="#111" />
+    <rect x="76" y="30" width="12" height="30" rx="4" fill="#111" />
+    <rect x="10" y="140" width="16" height="35" rx="4" fill="#111" />
+    <rect x="74" y="140" width="16" height="35" rx="4" fill="#111" />
+    
+    {/* Shadow / Base */}
+    <path d="M 22 25 C 22 10, 78 10, 78 25 L 82 170 C 82 190, 18 190, 18 170 Z" fill="#0f0f11" />
+
+    {/* Main Body (Widebody JDM) */}
+    <path d="M 25 25 C 25 10, 75 10, 75 25 L 80 170 C 80 185, 20 185, 20 170 Z" fill={color} />
+    
+    {/* Hood */}
+    <path d="M 28 30 L 72 30 L 68 75 L 32 75 Z" fill="rgba(0,0,0,0.15)" />
+    {/* Hood Vents */}
+    <rect x="35" y="40" width="8" height="15" rx="2" fill="#111" />
+    <rect x="57" y="40" width="8" height="15" rx="2" fill="#111" />
+    <path d="M 45 60 L 55 60 L 53 65 L 47 65 Z" fill="#111" />
+
+    {/* Windshield */}
+    <path d="M 26 75 C 40 65, 60 65, 74 75 L 80 100 L 20 100 Z" fill="#111418" />
+    <path d="M 30 78 C 42 70, 58 70, 70 78 L 74 95 L 26 95 Z" fill="#2a303c" /> {/* Glass reflection */}
+
+    {/* Roof */}
+    <path d="M 26 100 L 74 100 L 70 135 L 30 135 Z" fill={color} />
+    <path d="M 32 105 L 68 105 L 65 130 L 35 130 Z" fill="rgba(255,255,255,0.1)" /> {/* Roof reflection */}
+
+    {/* Rear Window */}
+    <path d="M 30 135 L 70 135 L 75 155 C 60 160, 40 160, 25 155 Z" fill="#111418" />
+    <path d="M 34 138 L 66 138 L 68 150 C 58 153, 42 153, 32 150 Z" fill="#2a303c" />
+
+    {/* Trunk & Rear */}
+    <path d="M 25 155 C 40 162, 60 162, 75 155 L 78 175 C 60 185, 40 185, 22 175 Z" fill={color} />
+    
+    {/* Headlights (Aggressive Angle) */}
+    <path d="M 25 20 L 38 18 L 35 30 L 23 30 Z" fill="#fff" />
+    <path d="M 75 20 L 62 18 L 65 30 L 77 30 Z" fill="#fff" />
+    <path d="M 25 20 L 38 18 L 35 30 L 23 30 Z" fill="#0cf" opacity="0.5" />
+    <path d="M 75 20 L 62 18 L 65 30 L 77 30 Z" fill="#0cf" opacity="0.5" />
+
+    {/* Taillights (Skyline/GTR style dual circles) */}
+    <circle cx="30" cy="178" r="4" fill="#f00" />
+    <circle cx="42" cy="179" r="4" fill="#f00" />
+    <circle cx="70" cy="178" r="4" fill="#f00" />
+    <circle cx="58" cy="179" r="4" fill="#f00" />
+
+    {/* Big JDM Spoiler / Wing */}
+    <path d="M 15 165 L 85 165 L 85 170 L 15 170 Z" fill="#111" />
+    {/* Wing Struts */}
+    <rect x="35" y="155" width="4" height="10" fill="#111" />
+    <rect x="61" y="155" width="4" height="10" fill="#111" />
+    {/* Wing Endplates */}
+    <path d="M 12 160 L 18 160 L 18 175 L 12 175 Z" fill={color} />
+    <path d="M 82 160 L 88 160 L 88 175 L 82 175 Z" fill={color} />
+
+    {/* Side Mirrors */}
+    <path d="M 20 85 L 14 85 L 16 92 L 20 92 Z" fill={color} />
+    <path d="M 80 85 L 86 85 L 84 92 L 80 92 Z" fill={color} />
+
+    {/* Widebody Fender Flares */}
+    <path d="M 22 25 L 18 35 L 18 50 L 22 60 Z" fill="rgba(0,0,0,0.2)" />
+    <path d="M 78 25 L 82 35 L 82 50 L 78 60 Z" fill="rgba(0,0,0,0.2)" />
+    <path d="M 20 135 L 15 145 L 15 165 L 20 170 Z" fill="rgba(0,0,0,0.2)" />
+    <path d="M 80 135 L 85 145 L 85 165 L 80 170 Z" fill="rgba(0,0,0,0.2)" />
+  </svg>
+)
 
 export function Hero() {
   const { t } = useTranslation()
@@ -200,21 +272,19 @@ export function Hero() {
             <OrbitalBadge
               baseAngle={baseAngle}
               offsetAngle={Math.PI} // 180 degrees offset (Left side)
-              colorClass="border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.5)] hover:shadow-[0_0_25px_rgba(6,182,212,0.8)] text-cyan-400"
               isDragging={isDragging}
               onPointerDown={createDragHandler(Math.PI)}
             >
-              <Terminal className="w-6 h-6" />
+              <TopDownJdmCar className="w-14 h-28" color="#06b6d4" />
             </OrbitalBadge>
 
             <OrbitalBadge
               baseAngle={baseAngle}
               offsetAngle={0} // 0 degrees offset (Right side)
-              colorClass="border-fuchsia-500/50 shadow-[0_0_15px_rgba(217,70,239,0.5)] hover:shadow-[0_0_25px_rgba(217,70,239,0.8)] text-fuchsia-400"
               isDragging={isDragging}
               onPointerDown={createDragHandler(0)}
             >
-              <span className="font-bold font-mono text-lg">&lt;/&gt;</span>
+              <TopDownJdmCar className="w-14 h-28" color="#22c55e" />
             </OrbitalBadge>
           </motion.figure>
         </div>

@@ -41,10 +41,18 @@ export function Contact() {
     setIsSubmitting(true)
     setSubmitStatus(null)
     try {
-      const response = await fetch("http://localhost:5000/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          ...data,
+          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
+          subject: `Liên hệ mới từ ${data.name} qua Portfolio`,
+          from_name: data.name,
+        }),
       })
       if (!response.ok) throw new Error("Failed to send")
       setSubmitStatus({ type: "success", message: t("contact.messages.success") })
