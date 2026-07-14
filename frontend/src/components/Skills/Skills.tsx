@@ -1,5 +1,4 @@
 import { motion, useInView } from "framer-motion"
-import { Progress } from "@/components/ui/progress"
 import { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 
