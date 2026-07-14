@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react"
+import emailjs from '@emailjs/browser'
 import { Github, Instagram } from "@/components/icons"
 import { useTranslation } from "react-i18next"
 
@@ -21,9 +22,7 @@ export function Contact() {
     name: z.string().min(2, t("contact.form.name_placeholder")),
     email: z.string().email(t("contact.form.email_placeholder")),
     phone: z.string().optional(),
-    projectType: z.string().optional(),
     message: z.string().min(10, t("contact.form.message_placeholder")),
-    budget: z.string().optional(),
   })
 
   type FormData = z.infer<typeof formSchema>
@@ -35,30 +34,36 @@ export function Contact() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    }
   })
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
     setSubmitStatus(null)
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          name: data.name,
+          email: data.email,
+          phone: data.phone || "Không cung cấp",
+          message: data.message,
         },
-        body: JSON.stringify({
-          ...data,
-          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
-          subject: `Liên hệ mới từ ${data.name} qua Portfolio`,
-          from_name: data.name,
-        }),
-      })
-      if (!response.ok) throw new Error("Failed to send")
+        {
+          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        }
+      )
       setSubmitStatus({ type: "success", message: t("contact.messages.success") })
       reset()
-    } catch (error) {
-      setSubmitStatus({ type: "error", message: t("contact.messages.error") })
+    } catch (error: any) {
+      const errorMsg = error?.text || error?.message || "Lỗi không xác định"
+      setSubmitStatus({ type: "error", message: `Lỗi: ${errorMsg}` })
     } finally {
       setIsSubmitting(false)
     }
@@ -196,33 +201,13 @@ export function Contact() {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">{t("contact.form.phone")}</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder={t("contact.form.phone_placeholder")}
-                        {...register("phone")}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="projectType">{t("contact.form.project")}</Label>
-                      <Input
-                        id="projectType"
-                        placeholder={t("contact.form.project_placeholder")}
-                        {...register("projectType")}
-                      />
-                    </div>
-                  </div>
-
                   <div className="space-y-2">
-                    <Label htmlFor="budget">{t("contact.form.budget")}</Label>
+                    <Label htmlFor="phone">{t("contact.form.phone")}</Label>
                     <Input
-                      id="budget"
-                      placeholder={t("contact.form.budget_placeholder")}
-                      {...register("budget")}
+                      id="phone"
+                      type="tel"
+                      placeholder={t("contact.form.phone_placeholder")}
+                      {...register("phone")}
                     />
                   </div>
 

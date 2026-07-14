@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 const SKILLS_CONFIG = [
   {
     key: "frontend",
+    color: "from-cyan-400 to-blue-500",
     skills: [
       { name: "React.js / Next.js", level: 90 },
       { name: "HTML / CSS / JS", level: 95 },
@@ -16,6 +17,7 @@ const SKILLS_CONFIG = [
   },
   {
     key: "backend",
+    color: "from-emerald-400 to-teal-500",
     skills: [
       { name: "Node.js / Express.js", level: 90 },
       { name: "PHP", level: 85 },
@@ -25,6 +27,7 @@ const SKILLS_CONFIG = [
   },
   {
     key: "database",
+    color: "from-orange-400 to-rose-500",
     skills: [
       { name: "SQL Server", level: 95 },
       { name: "MySQL", level: 90 },
@@ -34,6 +37,7 @@ const SKILLS_CONFIG = [
   },
   {
     key: "desktop",
+    color: "from-purple-400 to-indigo-500",
     skills: [
       { name: "C# / .NET", level: 90 },
       { name: "Windows Forms", level: 85 },
@@ -43,6 +47,7 @@ const SKILLS_CONFIG = [
   },
   {
     key: "ai",
+    color: "from-pink-400 to-rose-500",
     skills: [
       { name: "Ollama Integration", level: 80 },
       { name: "LLMs Implementation", level: 75 },
@@ -52,16 +57,16 @@ const SKILLS_CONFIG = [
   },
   {
     key: "tools",
+    color: "from-amber-400 to-orange-500",
     skills: [
       { name: "Git / GitHub", level: 95 },
-      { name: "Docker", level: 70 },
       { name: "Agile / Scrum", level: 85 },
     ],
     bentoClass: "lg:col-span-3 md:col-span-2",
   },
 ]
 
-function SkillBar({ name, level }: { name: string; level: number }) {
+function SkillBar({ name, level, colorClass }: { name: string; level: number; colorClass: string }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-50px" })
   const [progress, setProgress] = useState(0)
@@ -76,10 +81,15 @@ function SkillBar({ name, level }: { name: string; level: number }) {
   return (
     <li ref={ref as any} className="mb-4">
       <div className="flex justify-between mb-1.5">
-        <span className="text-sm font-medium text-foreground/80">{name}</span>
-        <span className="text-sm text-muted-foreground">{progress}%</span>
+        <span className="text-sm font-medium text-foreground/90">{name}</span>
+        <span className={`text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r ${colorClass}`}>{progress}%</span>
       </div>
-      <Progress value={progress} className="h-2 transition-all duration-1000 ease-out bg-muted border border-border/30" />
+      <div className="h-2 w-full bg-muted/50 rounded-full overflow-hidden border border-white/5 backdrop-blur-sm">
+        <div 
+          className={`h-full bg-gradient-to-r ${colorClass} transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(255,255,255,0.3)]`}
+          style={{ width: `${progress}%` }}
+        />
+      </div>
     </li>
   )
 }
@@ -105,31 +115,24 @@ function BentoSkillCard({ category, title }: { category: typeof SKILLS_CONFIG[0]
       onBlur={() => { setIsFocused(false); setOpacity(0) }}
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={() => setOpacity(0)}
-      className="relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/50 bg-card p-6 transition-all hover:-translate-y-1 hover:shadow-lg group"
+      className="relative flex flex-col h-full overflow-hidden rounded-2xl border border-white/10 bg-background/40 backdrop-blur-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] group"
     >
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
         style={{
           opacity,
-          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255,255,255,.04), transparent 40%)`,
+          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255,255,255,.08), transparent 40%)`,
         }}
       />
       
-      <div 
-        className="absolute inset-0 z-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(800px circle at ${position.x}px ${position.y}px, color-mix(in oklch, var(--accent) 10%, transparent), transparent 40%)`,
-        }}
-      />
-
       <div className="relative z-10">
-        <h3 className="text-xs font-bold tracking-widest text-accent mb-6 uppercase flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+        <h3 className={`text-sm font-bold tracking-widest mb-6 uppercase flex items-center gap-3 bg-clip-text text-transparent bg-gradient-to-r ${category.color}`}>
+          <span className={`w-2.5 h-2.5 rounded-full shadow-lg bg-gradient-to-r ${category.color} animate-pulse`} />
           {title}
         </h3>
         <ul className="space-y-4 m-0 p-0 list-none">
           {category.skills.map((skill) => (
-            <SkillBar key={skill.name} name={skill.name} level={skill.level} />
+            <SkillBar key={skill.name} name={skill.name} level={skill.level} colorClass={category.color} />
           ))}
         </ul>
       </div>
@@ -141,7 +144,8 @@ export function Skills() {
   const { t } = useTranslation()
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden bg-muted/20">
+    <section id="skills" className="py-24 relative overflow-hidden bg-transparent">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-background/60 to-background/90 pointer-events-none" />
       <div className="w-full px-6 lg:px-12 xl:px-20 max-w-[1920px] mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

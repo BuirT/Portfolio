@@ -91,7 +91,7 @@
       "newspay": {
         "title": "Editorial Desk - NewsPay System",
         "type": "Full-Stack Web + Desktop Application",
-        "status": "Completed (DATN Project)",
+        "status": "Completed",
         "description": "Enterprise-grade newsroom management system combining Web & Desktop platforms, featuring AI-powered content validation, automated payroll calculation, and real-time multi-level approval workflows.",
         "key_features": "Key Features",
         "features": [
@@ -161,7 +161,7 @@
         }
       },
       "datnhethongcanhbaodien": {
-        "title": "Electrical Warning System (DATN)",
+        "title": "Electrical Warning System",
         "type": "IoT Web Dashboard",
         "status": "Completed",
         "description": "A web-based monitoring and warning system for electrical safety. Displays real-time parameters and alerts users to potential electrical hazards.",

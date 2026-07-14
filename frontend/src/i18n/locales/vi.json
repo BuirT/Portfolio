@@ -92,7 +92,7 @@
       "newspay": {
         "title": "Hệ Thống Tòa Soạn - Tính Nhuận Bút",
         "type": "Web Full-Stack + Ứng dụng Desktop",
-        "status": "Hoàn thành (Đồ án tốt nghiệp)",
+        "status": "Hoàn thành",
         "description": "Hệ thống quản lý tòa soạn cấp doanh nghiệp kết hợp hai nền tảng Web & Desktop, nổi bật với tính năng kiểm duyệt nội dung bằng AI, tự động tính toán nhuận bút và quy trình duyệt bài đa cấp độ theo thời gian thực.",
         "key_features": "Tính Năng Chính",
         "features": [
@@ -162,7 +162,7 @@
         }
       },
       "datnhethongcanhbaodien": {
-        "title": "Hệ Thống Cảnh Báo Điện (ĐATN)",
+        "title": "Hệ Thống Cảnh Báo Điện",
         "type": "Dashboard Web IoT",
         "status": "Hoàn thành",
         "description": "Hệ thống giám sát và cảnh báo an toàn điện tử qua nền tảng web. Hiển thị các thông số theo thời gian thực và cảnh báo người dùng về các nguy cơ điện tiềm ẩn.",

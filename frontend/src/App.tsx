@@ -1,4 +1,5 @@
 import { ThemeProvider } from "./components/ThemeProvider"
+import { GlobalParticles } from "./components/GlobalParticles"
 import { Header } from "./components/Header/Header"
 import { Hero } from "./components/Hero/Hero"
 import { About } from "./components/About/About"
@@ -12,7 +13,8 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
       <div className="noise-bg" />
-      <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+      <GlobalParticles />
+      <div className="min-h-screen bg-transparent relative z-10 text-foreground selection:bg-primary/30">
         <Header />
         <main>
           <Hero />

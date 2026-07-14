@@ -16,8 +16,8 @@ export function About() {
   ]
 
   const stats = [
-    { value: "2+", label: t("about.stats.experience") },
-    { value: "10+", label: t("about.stats.projects") },
+    { value: "1+", label: t("about.stats.experience") },
+    { value: "6+", label: t("about.stats.projects") },
   ]
 
   return (

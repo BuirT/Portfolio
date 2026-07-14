@@ -1,7 +1,9 @@
 import { memo, useEffect, useRef } from "react"
+import { useTheme } from "./ThemeProvider"
 
 export const ParticleBackground = memo(function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -9,11 +11,37 @@ export const ParticleBackground = memo(function ParticleBackground() {
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
     if (!ctx) return
 
+    const isDark =
+      theme === "dark" ||
+      (theme === "system" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+
+    // --- Color Palettes ---
+    const C = {
+      grid: isDark ? "rgba(30, 200, 130, 0.05)" : "rgba(15, 100, 65, 0.15)",
+      radarSweep: isDark ? "30, 220, 140" : "15, 110, 70",
+      radarLine: isDark ? "rgba(50, 255, 160, 0.35)" : "rgba(20, 150, 80, 0.5)",
+      blip: isDark ? "50, 255, 160" : "20, 150, 80",
+      targetFlash: isDark ? "#FFFFFF" : "#FF0000",
+      targetWarning: isDark ? "255, 80, 80" : "200, 20, 20",
+      targetCenter: isDark ? "255, 60, 60" : "220, 20, 20",
+      targetDistance: isDark ? "255, 180, 180" : "180, 20, 20",
+      targetRingWhite: isDark ? "255,255,255" : "0,0,0",
+      crosshairGreen: isDark ? "50, 255, 160" : "20, 150, 80",
+      crosshairRed: isDark ? "255, 80, 80" : "220, 20, 20",
+      bulletSpark: isDark ? "255, 220, 80" : "200, 150, 20",
+      bulletCore: isDark ? "255, 240, 100" : "220, 180, 20",
+      explosions: isDark 
+        ? ["#FF4444", "#FF8800", "#FFDD00", "#FF6622", "#FFAAAA"]
+        : ["#CC0000", "#DD5500", "#AA8800", "#CC3300", "#880000"]
+    }
+
     let W = canvas.width = window.innerWidth
     let H = canvas.height = window.innerHeight
 
     let mouse = { x: W / 2, y: H / 2 }
     let radarAngle = 0
+    let score = 0 // Biến lưu điểm số
 
     // ─── BULLETS ───────────────────────────────────────────────
     type Bullet = { x: number; y: number; vx: number; vy: number; life: number; maxLife: number }
@@ -56,13 +84,12 @@ export const ParticleBackground = memo(function ParticleBackground() {
       for (let i = 0; i < count; i++) {
         const angle = (i / count) * Math.PI * 2 + Math.random() * 0.3
         const speed = 2 + Math.random() * 5
-        const colors = ["#FF4444", "#FF8800", "#FFDD00", "#FF6622", "#FFAAAA"]
         particles.push({
           x: t.x, y: t.y,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
           life: 0.8 + Math.random() * 0.5,
-          color: colors[Math.floor(Math.random() * colors.length)],
+          color: C.explosions[Math.floor(Math.random() * C.explosions.length)],
         })
       }
     }
@@ -92,11 +119,11 @@ export const ParticleBackground = memo(function ParticleBackground() {
     const drawTarget = (t: Target) => {
       const { x, y, radius, life, pulse, hit, hitTimer } = t
       if (hit) {
-        // Flash white on hit
+        // Flash on hit
         const flash = hitTimer / 18
         ctx.globalAlpha = flash
         ctx.beginPath(); ctx.arc(x, y, radius * 1.5, 0, Math.PI * 2)
-        ctx.fillStyle = "#FFFFFF"; ctx.fill()
+        ctx.fillStyle = C.targetFlash; ctx.fill()
         ctx.globalAlpha = 1
         return
       }
@@ -108,17 +135,17 @@ export const ParticleBackground = memo(function ParticleBackground() {
       // Outer warning ring (blinks as life decreases)
       if (life < 0.3) {
         const blink = Math.sin(pulse * 8) > 0 ? 0.5 : 0.1
-        ctx.strokeStyle = `rgba(255, 80, 80, ${blink})`
+        ctx.strokeStyle = `rgba(${C.targetWarning}, ${blink})`
         ctx.lineWidth = 2
         ctx.beginPath(); ctx.arc(x, y, r + 10, 0, Math.PI * 2); ctx.stroke()
       }
 
       // Rings — Red/White bulls-eye pattern
       const rings = [
-        { r: r, color: `rgba(255, 30, 30, ${alpha * 0.25})`, stroke: `rgba(255, 80, 80, ${alpha})` },
-        { r: r * 0.7, color: `rgba(255,255,255, ${alpha * 0.15})`, stroke: `rgba(255,255,255, ${alpha * 0.7})` },
-        { r: r * 0.45, color: `rgba(255, 30, 30, ${alpha * 0.3})`, stroke: `rgba(255, 80, 80, ${alpha})` },
-        { r: r * 0.22, color: `rgba(255,255,255, ${alpha * 0.2})`, stroke: `rgba(255,255,255, ${alpha})` },
+        { r: r, color: `rgba(${C.targetWarning}, ${alpha * 0.25})`, stroke: `rgba(${C.targetWarning}, ${alpha})` },
+        { r: r * 0.7, color: `rgba(${C.targetRingWhite}, ${alpha * 0.15})`, stroke: `rgba(${C.targetRingWhite}, ${alpha * 0.7})` },
+        { r: r * 0.45, color: `rgba(${C.targetWarning}, ${alpha * 0.3})`, stroke: `rgba(${C.targetWarning}, ${alpha})` },
+        { r: r * 0.22, color: `rgba(${C.targetRingWhite}, ${alpha * 0.2})`, stroke: `rgba(${C.targetRingWhite}, ${alpha})` },
       ]
       for (const ring of rings) {
         ctx.beginPath(); ctx.arc(x, y, ring.r, 0, Math.PI * 2)
@@ -128,10 +155,10 @@ export const ParticleBackground = memo(function ParticleBackground() {
 
       // Bullseye center dot
       ctx.beginPath(); ctx.arc(x, y, r * 0.08, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(255, 60, 60, ${alpha})`; ctx.fill()
+      ctx.fillStyle = `rgba(${C.targetCenter}, ${alpha})`; ctx.fill()
 
       // Crosshair lines across target
-      ctx.strokeStyle = `rgba(255, 100, 100, ${alpha * 0.5})`
+      ctx.strokeStyle = `rgba(${C.targetWarning}, ${alpha * 0.5})`
       ctx.lineWidth = 0.8
       ctx.setLineDash([3, 3])
       ctx.beginPath(); ctx.moveTo(x - r, y); ctx.lineTo(x + r, y); ctx.stroke()
@@ -139,7 +166,7 @@ export const ParticleBackground = memo(function ParticleBackground() {
       ctx.setLineDash([])
 
       // Distance label
-      ctx.fillStyle = `rgba(255, 180, 180, ${alpha * 0.8})`
+      ctx.fillStyle = `rgba(${C.targetDistance}, ${alpha * 0.8})`
       ctx.font = `bold 9px monospace`
       ctx.textAlign = "center"
       ctx.fillText(`${Math.floor(Math.hypot(x - mouse.x, y - mouse.y))}m`, x, y - r - 6)
@@ -155,7 +182,7 @@ export const ParticleBackground = memo(function ParticleBackground() {
       ctx.clearRect(0, 0, W, H)
 
       // ── Grid ────────────────────────────────────────────────
-      ctx.strokeStyle = "rgba(30, 200, 130, 0.05)"
+      ctx.strokeStyle = C.grid
       ctx.lineWidth = 0.5
       const GRID = 80
       for (let x = 0; x < W; x += GRID) {
@@ -169,7 +196,7 @@ export const ParticleBackground = memo(function ParticleBackground() {
       const cx = W * 0.5, cy = H * 0.5
       const radarR = Math.min(W, H) * 0.45
 
-      ctx.strokeStyle = "rgba(30, 200, 130, 0.08)"
+      ctx.strokeStyle = C.grid
       ctx.lineWidth = 1
       for (let r = radarR / 4; r <= radarR; r += radarR / 4) {
         ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke()
@@ -178,15 +205,15 @@ export const ParticleBackground = memo(function ParticleBackground() {
       const sweepLen = Math.PI * 0.6
       for (let i = 0; i < 30; i++) {
         const angle = radarAngle - (i / 30) * sweepLen
-        const alpha = (1 - i / 30) * 0.07
-        ctx.strokeStyle = `rgba(30, 220, 140, ${alpha})`
+        const alpha = (1 - i / 30) * (isDark ? 0.07 : 0.15)
+        ctx.strokeStyle = `rgba(${C.radarSweep}, ${alpha})`
         ctx.lineWidth = radarR / 15
         ctx.beginPath()
         ctx.moveTo(cx, cy)
         ctx.lineTo(cx + Math.cos(angle) * radarR, cy + Math.sin(angle) * radarR)
         ctx.stroke()
       }
-      ctx.strokeStyle = "rgba(50, 255, 160, 0.35)"
+      ctx.strokeStyle = C.radarLine
       ctx.lineWidth = 1.5
       ctx.beginPath()
       ctx.moveTo(cx, cy)
@@ -199,7 +226,7 @@ export const ParticleBackground = memo(function ParticleBackground() {
         b.life -= 0.007
         if (b.life <= 0 || Math.hypot(b.x - cx, b.y - cy) > radarR) { blips.splice(i, 1); continue }
         ctx.beginPath(); ctx.arc(b.x, b.y, 3 * b.life, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(50, 255, 160, ${b.life * 0.7})`; ctx.fill()
+        ctx.fillStyle = `rgba(${C.blip}, ${b.life * 0.7})`; ctx.fill()
       }
       for (let i = 0; i < 2; i++) {
         const angle = radarAngle - (i / 2) * 0.1
@@ -228,6 +255,7 @@ export const ParticleBackground = memo(function ParticleBackground() {
           const bul = bullets[j]
           if (Math.hypot(bul.x - t.x, bul.y - t.y) < t.radius) {
             // HIT!
+            if (!t.hit) score += 100; // Cộng 100 điểm cho mỗi lần bắn trúng
             t.hit = true
             t.hitTimer = 18
             explodeTarget(t)
@@ -260,8 +288,8 @@ export const ParticleBackground = memo(function ParticleBackground() {
       const ch = 18, gap = 6
       // Check if aiming near a target
       const aiming = targets.find(t => !t.hit && Math.hypot(mouse.x - t.x, mouse.y - t.y) < t.radius + 15)
-      const hairColor = aiming ? "rgba(255, 80, 80, 0.9)" : "rgba(50, 255, 160, 0.7)"
-      const hairGlow = aiming ? "rgba(255, 80, 80, 0.3)" : "rgba(50, 255, 160, 0.2)"
+      const hairColor = aiming ? `rgba(${C.crosshairRed}, 0.9)` : `rgba(${C.crosshairGreen}, 0.9)`
+      const hairGlow = aiming ? `rgba(${C.crosshairRed}, 0.3)` : `rgba(${C.crosshairGreen}, 0.2)`
 
       ctx.strokeStyle = hairColor; ctx.lineWidth = 1.5
       ctx.beginPath(); ctx.moveTo(mouse.x, mouse.y - gap); ctx.lineTo(mouse.x, mouse.y - ch - gap); ctx.stroke()
@@ -275,7 +303,7 @@ export const ParticleBackground = memo(function ParticleBackground() {
 
       // "LOCKED" label when aiming at target
       if (aiming) {
-        ctx.fillStyle = "rgba(255, 60, 60, 0.9)"
+        ctx.fillStyle = `rgba(${C.targetCenter}, 0.9)`
         ctx.font = "bold 10px monospace"
         ctx.textAlign = "center"
         ctx.fillText("◆ LOCKED ◆", mouse.x, mouse.y - ch - 14)
@@ -293,11 +321,17 @@ export const ParticleBackground = memo(function ParticleBackground() {
         ctx.beginPath()
         ctx.moveTo(b.x - b.vx * 8, b.y - b.vy * 8)
         ctx.lineTo(b.x, b.y)
-        ctx.strokeStyle = `rgba(255, 220, 80, ${t * 0.8})`
+        ctx.strokeStyle = `rgba(${C.bulletSpark}, ${t * 0.8})`
         ctx.lineWidth = 2 * t; ctx.stroke()
         ctx.beginPath(); ctx.arc(b.x, b.y, 3 * t, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(255, 240, 100, ${t})`; ctx.fill()
+        ctx.fillStyle = `rgba(${C.bulletCore}, ${t})`; ctx.fill()
       }
+
+      // ── Draw Score ───────────────────────────────────────
+      ctx.fillStyle = `rgba(${C.crosshairGreen}, 0.9)`;
+      ctx.font = "bold 24px monospace";
+      ctx.textAlign = "right";
+      ctx.fillText(`SCORE: ${score.toString().padStart(5, '0')}`, W - 40, 60);
     }
 
     const onMouseMove = (e: MouseEvent) => { mouse.x = e.clientX; mouse.y = e.clientY }
@@ -329,7 +363,7 @@ export const ParticleBackground = memo(function ParticleBackground() {
       window.removeEventListener("mousedown", onMouseDown)
       window.removeEventListener("resize", onResize)
     }
-  }, [])
+  }, [theme])
 
   return (
     <canvas

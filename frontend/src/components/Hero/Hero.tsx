@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform, useMotionValue, useAnimationFrame, MotionValue } from "framer-motion"
 import { useTranslation } from "react-i18next"
 import { ParticleBackground } from "../ParticleBackground"
+import { Code2, Rocket } from "lucide-react"
 
 function OrbitalBadge({
   children,
@@ -37,12 +38,6 @@ function OrbitalBadge({
     return `calc(50% + ${r * sinA}%)`;
   });
 
-  const rotateStyle = useTransform(baseAngle, (base) => {
-    const angle = base + offsetAngle;
-    // Top-down car points UP initially. To make it drive clockwise, we add 180 degrees to the orbit angle.
-    return `${(angle * 180) / Math.PI + 180}deg`;
-  });
-
   return (
     <motion.div
       onPointerDown={onPointerDown}
@@ -50,7 +45,6 @@ function OrbitalBadge({
       style={{
         left: leftStyle,
         top: topStyle,
-        rotate: rotateStyle,
         x: "-50%",
         y: "-50%",
       }}
@@ -60,74 +54,7 @@ function OrbitalBadge({
   )
 }
 
-const TopDownJdmCar = ({ className, color = "#06b6d4" }: { className?: string, color?: string }) => (
-  <svg viewBox="0 0 100 200" fill="none" className={className} style={{ filter: `drop-shadow(0 15px 25px ${color}66)` }}>
-    {/* Tires */}
-    <rect x="12" y="30" width="12" height="30" rx="4" fill="#111" />
-    <rect x="76" y="30" width="12" height="30" rx="4" fill="#111" />
-    <rect x="10" y="140" width="16" height="35" rx="4" fill="#111" />
-    <rect x="74" y="140" width="16" height="35" rx="4" fill="#111" />
-    
-    {/* Shadow / Base */}
-    <path d="M 22 25 C 22 10, 78 10, 78 25 L 82 170 C 82 190, 18 190, 18 170 Z" fill="#0f0f11" />
 
-    {/* Main Body (Widebody JDM) */}
-    <path d="M 25 25 C 25 10, 75 10, 75 25 L 80 170 C 80 185, 20 185, 20 170 Z" fill={color} />
-    
-    {/* Hood */}
-    <path d="M 28 30 L 72 30 L 68 75 L 32 75 Z" fill="rgba(0,0,0,0.15)" />
-    {/* Hood Vents */}
-    <rect x="35" y="40" width="8" height="15" rx="2" fill="#111" />
-    <rect x="57" y="40" width="8" height="15" rx="2" fill="#111" />
-    <path d="M 45 60 L 55 60 L 53 65 L 47 65 Z" fill="#111" />
-
-    {/* Windshield */}
-    <path d="M 26 75 C 40 65, 60 65, 74 75 L 80 100 L 20 100 Z" fill="#111418" />
-    <path d="M 30 78 C 42 70, 58 70, 70 78 L 74 95 L 26 95 Z" fill="#2a303c" /> {/* Glass reflection */}
-
-    {/* Roof */}
-    <path d="M 26 100 L 74 100 L 70 135 L 30 135 Z" fill={color} />
-    <path d="M 32 105 L 68 105 L 65 130 L 35 130 Z" fill="rgba(255,255,255,0.1)" /> {/* Roof reflection */}
-
-    {/* Rear Window */}
-    <path d="M 30 135 L 70 135 L 75 155 C 60 160, 40 160, 25 155 Z" fill="#111418" />
-    <path d="M 34 138 L 66 138 L 68 150 C 58 153, 42 153, 32 150 Z" fill="#2a303c" />
-
-    {/* Trunk & Rear */}
-    <path d="M 25 155 C 40 162, 60 162, 75 155 L 78 175 C 60 185, 40 185, 22 175 Z" fill={color} />
-    
-    {/* Headlights (Aggressive Angle) */}
-    <path d="M 25 20 L 38 18 L 35 30 L 23 30 Z" fill="#fff" />
-    <path d="M 75 20 L 62 18 L 65 30 L 77 30 Z" fill="#fff" />
-    <path d="M 25 20 L 38 18 L 35 30 L 23 30 Z" fill="#0cf" opacity="0.5" />
-    <path d="M 75 20 L 62 18 L 65 30 L 77 30 Z" fill="#0cf" opacity="0.5" />
-
-    {/* Taillights (Skyline/GTR style dual circles) */}
-    <circle cx="30" cy="178" r="4" fill="#f00" />
-    <circle cx="42" cy="179" r="4" fill="#f00" />
-    <circle cx="70" cy="178" r="4" fill="#f00" />
-    <circle cx="58" cy="179" r="4" fill="#f00" />
-
-    {/* Big JDM Spoiler / Wing */}
-    <path d="M 15 165 L 85 165 L 85 170 L 15 170 Z" fill="#111" />
-    {/* Wing Struts */}
-    <rect x="35" y="155" width="4" height="10" fill="#111" />
-    <rect x="61" y="155" width="4" height="10" fill="#111" />
-    {/* Wing Endplates */}
-    <path d="M 12 160 L 18 160 L 18 175 L 12 175 Z" fill={color} />
-    <path d="M 82 160 L 88 160 L 88 175 L 82 175 Z" fill={color} />
-
-    {/* Side Mirrors */}
-    <path d="M 20 85 L 14 85 L 16 92 L 20 92 Z" fill={color} />
-    <path d="M 80 85 L 86 85 L 84 92 L 80 92 Z" fill={color} />
-
-    {/* Widebody Fender Flares */}
-    <path d="M 22 25 L 18 35 L 18 50 L 22 60 Z" fill="rgba(0,0,0,0.2)" />
-    <path d="M 78 25 L 82 35 L 82 50 L 78 60 Z" fill="rgba(0,0,0,0.2)" />
-    <path d="M 20 135 L 15 145 L 15 165 L 20 170 Z" fill="rgba(0,0,0,0.2)" />
-    <path d="M 80 135 L 85 145 L 85 165 L 80 170 Z" fill="rgba(0,0,0,0.2)" />
-  </svg>
-)
 
 export function Hero() {
   const { t } = useTranslation()
@@ -211,7 +138,7 @@ export function Hero() {
     <section
       ref={containerRef}
       id="home"
-      className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-background py-20 lg:py-0"
+      className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-transparent py-20 lg:py-0"
     >
       {/* Dynamic Background */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,color-mix(in_oklch,var(--primary)_8%,transparent)_0%,transparent_70%)] pointer-events-none" />
@@ -258,7 +185,7 @@ export function Hero() {
                   key={imgSrc}
                   src={imgSrc}
                   alt={`BuirT Avatar ${idx}`}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:scale-110 ${idx === imageIndex ? 'opacity-100' : 'opacity-0'}`}
+                  className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 ${idx === imageIndex ? 'opacity-100' : 'opacity-0'}`}
                 />
               ))}
 
@@ -275,7 +202,9 @@ export function Hero() {
               isDragging={isDragging}
               onPointerDown={createDragHandler(Math.PI)}
             >
-              <TopDownJdmCar className="w-14 h-28" color="#06b6d4" />
+              <div className="w-14 h-14 rounded-full bg-background/80 backdrop-blur-md border border-primary/50 shadow-[0_0_20px_color-mix(in_oklch,var(--primary)_50%,transparent)] flex items-center justify-center">
+                <Code2 className="w-7 h-7 text-primary" />
+              </div>
             </OrbitalBadge>
 
             <OrbitalBadge
@@ -284,7 +213,9 @@ export function Hero() {
               isDragging={isDragging}
               onPointerDown={createDragHandler(0)}
             >
-              <TopDownJdmCar className="w-14 h-28" color="#22c55e" />
+              <div className="w-14 h-14 rounded-full bg-background/80 backdrop-blur-md border border-accent/50 shadow-[0_0_20px_color-mix(in_oklch,var(--accent)_50%,transparent)] flex items-center justify-center">
+                <Rocket className="w-7 h-7 text-accent" />
+              </div>
             </OrbitalBadge>
           </motion.figure>
         </div>
@@ -306,11 +237,11 @@ export function Hero() {
 
           <dl className="mt-8 flex flex-wrap justify-center lg:justify-end gap-6 text-sm font-mono text-muted-foreground m-0 p-0">
             <div className="flex flex-col items-center lg:items-end gap-1">
-              <dt className="text-2xl font-bold text-foreground">3+</dt>
+              <dt className="text-2xl font-bold text-foreground">1+</dt>
               <dd className="m-0">{t("hero.stats.experience")}</dd>
             </div>
             <div className="flex flex-col items-center lg:items-end gap-1">
-              <dt className="text-2xl font-bold text-foreground">15+</dt>
+              <dt className="text-2xl font-bold text-foreground">6+</dt>
               <dd className="m-0">{t("hero.stats.projects")}</dd>
             </div>
             <div className="flex flex-col items-center lg:items-end gap-1">
