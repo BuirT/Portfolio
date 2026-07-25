@@ -43,7 +43,13 @@ const PROJECTS_CONFIG = [
     links: {
       github: "https://github.com/TriDung3010/DATNhethongcanhbaodien",
     },
-    images: [`${import.meta.env.BASE_URL}images/projects/datn-1.png`]
+    images: [
+      `${import.meta.env.BASE_URL}images/projects/hethongcanhbaodien/iot.JPG`,
+      `${import.meta.env.BASE_URL}images/projects/hethongcanhbaodien/dashboard (1).png`,
+      `${import.meta.env.BASE_URL}images/projects/hethongcanhbaodien/dashboard (2).png`,
+      `${import.meta.env.BASE_URL}images/projects/hethongcanhbaodien/dashboard (3).png`,
+      `${import.meta.env.BASE_URL}images/projects/hethongcanhbaodien/login.png`
+    ]
   }
 ]
 
@@ -52,6 +58,7 @@ export function Projects() {
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS_CONFIG[0] | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFullscreenImage, setIsFullscreenImage] = useState(false)
+  const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null)
 
   const openModal = (project: typeof PROJECTS_CONFIG[0]) => {
     setSelectedProject(project)
@@ -94,7 +101,7 @@ export function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
@@ -105,78 +112,92 @@ export function Projects() {
           </p>
         </motion.div>
 
-        <ul className="max-w-5xl mx-auto space-y-12 m-0 p-0 list-none">
+        <div className="relative h-[450px] md:h-[550px] w-full max-w-6xl mx-auto flex items-center justify-center mt-12 mb-24">
           {PROJECTS_CONFIG.map((project, index) => {
+            const total = PROJECTS_CONFIG.length;
+            // Spread cards out significantly to avoid clutter
+            const xOffset = (index - (total - 1) / 2) * 180; 
+            // Gentle arc for Y
+            const yArcOffset = Math.abs(index - (total - 1) / 2) * 20;
+            // Subtle rotation
+            const baseAngle = (index - (total - 1) / 2) * 6; 
 
             return (
-              <motion.li
+              <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="absolute"
+                initial={{ opacity: 0, y: 150, x: 0, rotate: 0, scale: 0.8 }}
+                whileInView={{ 
+                  opacity: 1, 
+                  y: yArcOffset,
+                  x: xOffset,
+                  rotate: baseAngle,
+                  scale: 1,
+                  transition: { type: "spring", stiffness: 100, damping: 20, delay: index * 0.1 }
+                }}
+                viewport={{ once: false, amount: 0.4 }}
+                style={{
+                  zIndex: hoveredCardIndex === index ? 50 : index,
+                  transformOrigin: "bottom center"
+                }}
+                onMouseEnter={() => setHoveredCardIndex(index)}
+                onMouseLeave={() => setHoveredCardIndex(null)}
               >
-                <Card className="overflow-hidden group hover:shadow-2xl transition-all duration-500 border-border bg-card">
-                  <article className="flex flex-col lg:flex-row">
-                    {/* Details */}
-                    <div className="p-8 w-full flex flex-col justify-between">
-                      <div>
-                        <div className="flex flex-wrap items-center gap-3 mb-4">
-                          <Badge variant="default" className="bg-primary/20 text-primary hover:bg-primary/30 border-none">
-                            {t(`projects.items.${project.key}.type`)}
-                          </Badge>
-                          <Badge variant="outline" className="text-emerald-500 border-emerald-500/30">
-                            ✓ {t(`projects.items.${project.key}.status`)}
-                          </Badge>
-                        </div>
+                <motion.div
+                  className="group"
+                  animate={{
+                    y: hoveredCardIndex === index ? -60 : 0,
+                    rotate: hoveredCardIndex === index ? -baseAngle * 0.9 : 0, // partially straightens
+                    scale: hoveredCardIndex === index ? 1.05 : 1,
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  onClick={() => openModal(project)}
+                >
+                  {/* Hitbox extender */}
+                  <div className="absolute -bottom-20 left-0 right-0 h-20 bg-transparent z-[-1]" />
 
-                        <button 
-                          onClick={() => openModal(project)}
-                          className="text-2xl md:text-3xl font-bold mb-3 font-heading text-left hover:text-primary transition-colors flex items-center gap-2 group/title"
-                        >
-                          {t(`projects.items.${project.key}.title`)}
-                          <Eye className="h-5 w-5 opacity-0 -translate-x-2 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-primary" />
-                        </button>
-
-                        <p className="text-muted-foreground leading-relaxed mb-6 max-w-3xl">
-                          {t(`projects.items.${project.key}.description`)}
-                        </p>
-
-                        <div className="mb-8">
-                          <div className="flex flex-wrap gap-2">
-                            {project.technologies.map(tech => (
-                              <Badge key={tech} variant="secondary" className="px-2 py-0.5 text-xs">
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-4 pt-4 border-t border-border">
-                        {project.links.github && (
-                          <a href={project.links.github} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", size: "sm", className: "gap-2" })}>
-                            <Github className="h-4 w-4" /> {t(`projects.items.${project.key}.links.web`)}
-                          </a>
-                        )}
-                        {project.links.githubWinform && (
-                          <a href={project.links.githubWinform} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", size: "sm", className: "gap-2" })}>
-                            <Github className="h-4 w-4" /> {t(`projects.items.${project.key}.links.desktop`)}
-                          </a>
-                        )}
-                        <a href="#contact" className={buttonVariants({ variant: "outline", size: "sm", className: "gap-2" })}>
-                          <ExternalLink className="h-4 w-4" /> {t(`projects.items.${project.key}.links.demo`)}
-                        </a>
-                      </div>
+                <Card className="relative w-[280px] md:w-[320px] h-[360px] md:h-[420px] rounded-3xl overflow-hidden cursor-pointer border border-white/10 shadow-2xl bg-black flex flex-col group-hover:shadow-[0_0_40px_rgba(var(--primary),0.3)] group-hover:border-primary/50 transition-all duration-500">
+                  {/* Full Background Image */}
+                  <img 
+                    src={project.images[0]} 
+                    alt={project.key} 
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out" 
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "https://placehold.co/600x800/111111/38bdf8?text=Project"
+                    }}
+                  />
+                  
+                  {/* Gradient Overlay for Text Readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-90 group-hover:opacity-75 transition-opacity duration-500" />
+                  
+                  {/* Floating Action Button (Center) */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-500 z-20">
+                    <div className="bg-primary/90 text-primary-foreground p-4 md:p-5 rounded-full backdrop-blur-md shadow-2xl">
+                      <Eye className="h-6 w-6 md:h-8 md:w-8" />
                     </div>
+                  </div>
 
-
-                  </article>
+                  {/* Content (Bottom aligned) */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500 z-10">
+                    <Badge variant="outline" className="w-fit mb-3 bg-background/50 backdrop-blur-md border-primary/40 text-primary uppercase tracking-wider text-[10px] md:text-xs font-semibold shadow-sm">
+                      {t(`projects.items.${project.key}.type`)}
+                    </Badge>
+                    <h3 className="text-2xl md:text-3xl font-bold font-heading text-white mb-2 leading-tight drop-shadow-lg">
+                      {t(`projects.items.${project.key}.title`)}
+                    </h3>
+                    <div className="h-6 overflow-hidden">
+                      <p className="text-sm text-gray-300 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 translate-y-4 group-hover:translate-y-0 drop-shadow-md">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+                        <span className="truncate">{t(`projects.items.${project.key}.status`)}</span>
+                      </p>
+                    </div>
+                  </div>
                 </Card>
-              </motion.li>
+                </motion.div>
+              </motion.div>
             )
           })}
-        </ul>
+        </div>
       </div>
 
       <AnimatePresence>

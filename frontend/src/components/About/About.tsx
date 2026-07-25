@@ -26,7 +26,7 @@ export function About() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
@@ -39,7 +39,7 @@ export function About() {
           <motion.article
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h3 className="text-2xl font-bold mb-4">{t("about.journey")}</h3>
@@ -57,7 +57,7 @@ export function About() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="space-y-6"
           >

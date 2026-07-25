@@ -75,7 +75,7 @@ export function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
@@ -91,7 +91,7 @@ export function Contact() {
           <motion.address
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="lg:col-span-1 space-y-6 not-italic"
           >
@@ -164,7 +164,7 @@ export function Contact() {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="lg:col-span-2"
           >
