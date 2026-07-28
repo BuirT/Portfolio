@@ -138,7 +138,7 @@
         }
       },
       "webvatlieuxaydung": {
-        "title": "WebVatlieuxaydung - 건설 자재 전자 상거래",
+        "title": "건축 자재 - 건설 자재 전자 상거래",
         "type": "풀스택 웹 애플리케이션",
         "status": "완료됨",
         "description": "PHP로 구축된 건축 자재 맞춤형 포괄적인 전자 상거래 플랫폼입니다. 재고 관리, 장바구니 및 사용자 결제 흐름이 포함됩니다.",

@@ -25,7 +25,7 @@ const PROJECTS_CONFIG = [
     links: {
       github: "https://github.com/BuirT/WebVatlieuxaydung",
     },
-    images: [`${import.meta.env.BASE_URL}images/projects/web-1.png`]
+    images: Array.from({ length: 17 }, (_, i) => `${import.meta.env.BASE_URL}images/projects/vatlieuxaydung/(${i + 1}).jpeg`)
   },
   {
     id: 3,
