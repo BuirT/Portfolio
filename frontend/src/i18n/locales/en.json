@@ -114,22 +114,23 @@
           "demo": "Request Demo"
         }
       },
-      "glcinema": {
-        "title": "GLCinema - Movie Booking Platform",
-        "type": "Frontend Web Application",
-        "status": "Completed",
-        "description": "A modern and interactive frontend interface for a cinema ticket booking system, designed with responsive layouts and smooth user interactions.",
+      "btflix": {
+        "title": "BTFlix - Social Movie Platform",
+        "type": "Full-Stack Web Application",
+        "status": "In Development",
+        "description": "An online movie streaming and entertainment platform integrated with social networking features. Users can watch movies, share thoughts, follow friends, and interact through posts.",
         "key_features": "Key Features",
         "features": [
-          "Interactive seat selection UI",
-          "Dynamic movie scheduling view",
-          "Responsive design for mobile and desktop"
+          "High-quality movie streaming experience",
+          "Social network for sharing and community interaction",
+          "Personal profiles and friend following",
+          "Smart search (Live Search)"
         ],
         "impact_metrics": "Tech Stack",
         "metrics": [
-          "HTML, CSS, JS",
-          "Responsive Layouts",
-          "CSS Animations"
+          "Next.js, React.js",
+          "Tailwind CSS",
+          "Node.js"
         ],
         "links": {
           "web": "View Source on GitHub",

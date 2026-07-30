@@ -115,22 +115,23 @@
           "demo": "Yêu Cầu Demo"
         }
       },
-      "glcinema": {
-        "title": "GLCinema - Nền Tảng Đặt Vé Xem Phim",
-        "type": "Ứng dụng Frontend Web",
-        "status": "Hoàn thành",
-        "description": "Giao diện frontend hiện đại và mang tính tương tác cao dành cho hệ thống đặt vé xem phim, được thiết kế với bố cục đáp ứng và trải nghiệm mượt mà.",
+      "btflix": {
+        "title": "BTFlix - Mạng Xã Hội Xem Phim",
+        "type": "Ứng dụng Web Full-Stack",
+        "status": "Đang phát triển",
+        "description": "Nền tảng giải trí và xem phim trực tuyến kết hợp với mạng xã hội. Nơi người dùng có thể xem phim, chia sẻ cảm nghĩ, theo dõi bạn bè và tương tác qua các bài đăng.",
         "key_features": "Tính Năng Chính",
         "features": [
-          "Giao diện chọn ghế ngồi trực quan",
-          "Hiển thị lịch chiếu phim linh hoạt",
-          "Thiết kế đáp ứng cho di động và máy tính"
+          "Trải nghiệm xem phim chất lượng cao",
+          "Mạng xã hội chia sẻ và tương tác cộng đồng",
+          "Hồ sơ cá nhân và theo dõi bạn bè",
+          "Tìm kiếm thông minh (Live Search)"
         ],
         "impact_metrics": "Công Nghệ Sử Dụng",
         "metrics": [
-          "HTML, CSS, JS",
-          "Bố cục Đáp ứng (Responsive)",
-          "CSS Animations"
+          "Next.js, React.js",
+          "Tailwind CSS",
+          "Node.js"
         ],
         "links": {
           "web": "Xem Mã Nguồn GitHub",

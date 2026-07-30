@@ -8,8 +8,9 @@ const SKILLS_CONFIG = [
     color: "from-cyan-400 to-blue-500",
     skills: [
       { name: "React.js / Next.js", level: 90 },
-      { name: "HTML / CSS / JS", level: 95 },
+      { name: "TypeScript / JS", level: 90 },
       { name: "Tailwind CSS", level: 95 },
+      { name: "HTML5 / CSS3", level: 90 },
       { name: "Framer Motion", level: 85 },
     ],
     bentoClass: "lg:col-span-2 md:col-span-2",

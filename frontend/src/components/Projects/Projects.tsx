@@ -28,12 +28,12 @@ const PROJECTS_CONFIG = [
   },
   {
     id: 3,
-    key: "glcinema",
-    technologies: ["HTML5", "CSS3", "JavaScript"],
+    key: "btflix",
+    technologies: ["Next.js", "React.js", "Tailwind CSS", "Node.js"],
     links: {
-      github: "https://github.com/BuirT/GLCinema",
+      github: "https://github.com/BuirT/BTFlix",
     },
-    images: [`${import.meta.env.BASE_URL}images/projects/glcinema-1.png`]
+    images: Array.from({ length: 16 }, (_, i) => `${import.meta.env.BASE_URL}images/projects/BTFlix/(${i + 1}).jpeg`)
   },
   {
     id: 4,
