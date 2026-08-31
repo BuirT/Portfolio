@@ -431,13 +431,6 @@ function ProjectAccordionItem({ project, isHovered, onHover, onClick, t }: any) 
               </Badge>
             )}
           </div>
-
-          <button
-            className={buttonVariants({ size: "lg", className: "gap-2 rounded-none pointer-events-auto w-fit font-mono tracking-widest font-bold bg-primary text-primary-foreground hover:bg-white hover:text-black transition-colors" })}
-          >
-            <Eye className="h-5 w-5" />
-            <span>ACCESS_DATA</span>
-          </button>
         </div>
       </motion.div>
     </motion.div>
