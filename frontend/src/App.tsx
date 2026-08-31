@@ -19,11 +19,11 @@ function App() {
       {!introFinished && <JdmIntro onFinish={() => setIntroFinished(true)} />}
       
       <div 
-        className={`transition-opacity duration-1000 ${
+        className={`transition-opacity duration-1000 overflow-x-hidden flex flex-col min-h-screen ${
           introFinished ? "opacity-100" : "opacity-0 h-screen overflow-hidden"
         }`}
       >
-        <div className="noise-bg" />
+        <div className="noise-bg fixed inset-0 pointer-events-none" />
         <div className="min-h-screen bg-transparent relative z-10 text-foreground selection:bg-primary/30">
           <Header />
           <main>
