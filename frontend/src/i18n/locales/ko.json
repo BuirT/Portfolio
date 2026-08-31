@@ -3,7 +3,7 @@
     "home": "홈",
     "about": "소개",
     "projects": "프로젝트",
-    "services": "서비스",
+    "services": "솔루션",
     "skills": "기술",
     "contact": "연락처"
   },
@@ -219,5 +219,11 @@
     "rights": "모든 권리 보유.",
     "built_with": "제작 기술",
     "and": "및"
+  },
+  "watermarks": {
+    "portfolio": "포트폴리오",
+    "projects": "프로젝트",
+    "skills": "기술",
+    "services": "솔루션"
   }
 }

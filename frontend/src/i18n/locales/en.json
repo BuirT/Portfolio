@@ -3,7 +3,7 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
-    "services": "Services",
+    "services": "Solutions",
     "skills": "Skills",
     "contact": "Contact"
   },
@@ -219,5 +219,11 @@
     "rights": "All rights reserved.",
     "built_with": "Built with",
     "and": "and"
+  },
+  "watermarks": {
+    "portfolio": "PORTFOLIO",
+    "projects": "PROJECTS",
+    "skills": "SKILLS",
+    "services": "SOLUTIONS"
   }
 }

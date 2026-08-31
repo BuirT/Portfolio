@@ -3,7 +3,7 @@
     "home": "Trang Chủ",
     "about": "Giới Thiệu",
     "projects": "Dự Án",
-    "services": "Dịch Vụ",
+    "services": "Giải Pháp",
     "skills": "Kỹ Năng",
     "contact": "Liên Hệ"
   },
@@ -220,5 +220,11 @@
     "rights": "Bản quyền đã được bảo hộ.",
     "built_with": "Phát triển với",
     "and": "và"
+  },
+  "watermarks": {
+    "portfolio": "HỒ SƠ",
+    "projects": "DỰ ÁN",
+    "skills": "KỸ NĂNG",
+    "services": "GIẢI PHÁP"
   }
 }

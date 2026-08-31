@@ -8,53 +8,41 @@ const SERVICES_CONFIG = [
     key: "web",
     icon: <Globe className="h-8 w-8" />,
     tech: ["React.js", "Node.js", "PHP", "JavaScript"],
-    color: "text-blue-400",
-    bg: "bg-blue-500/10",
     bentoClass: "lg:col-span-2 lg:row-span-2 md:col-span-2",
   },
   {
     key: "desktop",
     icon: <Monitor className="h-8 w-8" />,
     tech: ["C#", ".NET", "WinForms"],
-    color: "text-purple-400",
-    bg: "bg-purple-500/10",
     bentoClass: "lg:col-span-2 md:col-span-1",
   },
   {
     key: "ai",
     icon: <Bot className="h-8 w-8" />,
     tech: ["Ollama", "LLMs", "Qwen2.5"],
-    color: "text-orange-400",
-    bg: "bg-orange-500/10",
     bentoClass: "lg:col-span-1 md:col-span-1",
   },
   {
     key: "db",
     icon: <Database className="h-8 w-8" />,
     tech: ["SQL Server", "MySQL"],
-    color: "text-red-400",
-    bg: "bg-red-500/10",
     bentoClass: "lg:col-span-1 md:col-span-1",
   },
   {
     key: "fullstack",
     icon: <LinkIcon className="h-8 w-8" />,
     tech: ["E-commerce", "Role-based Access"],
-    color: "text-emerald-400",
-    bg: "bg-emerald-500/10",
     bentoClass: "lg:col-span-2 md:col-span-2",
   },
   {
     key: "iot",
     icon: <Settings className="h-8 w-8" />,
     tech: ["Real-time", "WebSockets", "Hardware APIs"],
-    color: "text-cyan-400",
-    bg: "bg-cyan-500/10",
     bentoClass: "lg:col-span-2 md:col-span-2",
   },
 ]
 
-// BentoCard with Mouse Glow effect
+// BentoCard with Mechanical JDM style
 function BentoCard({ service, t }: { service: typeof SERVICES_CONFIG[0], t: any }) {
   const divRef = useRef<HTMLDivElement>(null)
   const [isFocused, setIsFocused] = useState(false)
@@ -63,73 +51,50 @@ function BentoCard({ service, t }: { service: typeof SERVICES_CONFIG[0], t: any 
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current || isFocused) return
-
     const div = divRef.current
     const rect = div.getBoundingClientRect()
-
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top })
-  }
-
-  const handleFocus = () => {
-    setIsFocused(true)
-    setOpacity(1)
-  }
-
-  const handleBlur = () => {
-    setIsFocused(false)
-    setOpacity(0)
-  }
-
-  const handleMouseEnter = () => {
-    setOpacity(1)
-  }
-
-  const handleMouseLeave = () => {
-    setOpacity(0)
   }
 
   return (
     <article
       ref={divRef as any}
       onMouseMove={handleMouseMove}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="relative flex flex-col h-full overflow-hidden rounded-2xl border border-border/50 bg-card/30 backdrop-blur-xl p-8 transition-all hover:-translate-y-1 hover:shadow-xl group"
+      onFocus={() => { setIsFocused(true); setOpacity(1) }}
+      onBlur={() => { setIsFocused(false); setOpacity(0) }}
+      onMouseEnter={() => setOpacity(1)}
+      onMouseLeave={() => setOpacity(0)}
+      className="relative flex flex-col h-full overflow-hidden rounded-none border border-border bg-card/60 p-6 sm:p-8 transition-all duration-300 hover:border-primary/50 group"
     >
+      {/* Background glow tracker */}
       <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 z-0"
         style={{
           opacity,
-          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255,255,255,.06), transparent 40%)`,
+          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(0,240,255,.15), transparent 40%)`,
         }}
       />
       
-      {/* Glow on hover for the border */}
-      <div 
-        className="absolute inset-0 z-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(800px circle at ${position.x}px ${position.y}px, color-mix(in oklch, var(--primary) 15%, transparent), transparent 40%)`,
-        }}
-      />
+      {/* Mechanical accents */}
+      <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-primary/50 group-hover:border-primary transition-colors z-10" />
+      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-primary/50 group-hover:border-primary transition-colors z-10" />
 
       <div className="relative z-10 flex h-full flex-col">
-        <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-colors duration-500 ${service.bg} ${service.color} group-hover:scale-110 shadow-inner`}>
+        <div className={`w-14 h-14 rounded-none border border-primary/30 flex items-center justify-center mb-8 transition-colors duration-300 bg-primary/10 text-primary group-hover:bg-primary group-hover:text-black`}>
           {service.icon}
         </div>
         
-        <h3 className="text-2xl font-bold mb-3 font-heading group-hover:text-primary transition-colors">
+        <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter group-hover:text-primary transition-colors">
           {t(`services.items.${service.key}.title`)}
         </h3>
         
-        <p className="text-muted-foreground leading-relaxed flex-grow">
+        <p className="text-muted-foreground leading-relaxed flex-grow font-mono text-sm border-l border-border pl-4 mb-6">
           {t(`services.items.${service.key}.description`)}
         </p>
 
-        <ul className="flex flex-wrap gap-2 pt-6 mt-auto m-0 p-0 list-none">
+        <ul className="flex flex-wrap gap-2 pt-6 mt-auto m-0 p-0 list-none border-t border-border">
           {service.tech.map((t) => (
-            <li key={t} className="text-xs font-medium text-muted-foreground bg-muted/50 border border-border/50 px-3 py-1.5 rounded-full backdrop-blur-sm">
+            <li key={t} className="text-xs font-bold text-muted-foreground bg-background border border-border px-3 py-1 rounded-none font-mono tracking-wider">
               {t}
             </li>
           ))}
@@ -143,20 +108,25 @@ export function Services() {
   const { t } = useTranslation()
 
   return (
-    <section id="services" className="py-24 relative overflow-hidden">
+    <section id="services" className="py-24 relative overflow-hidden bg-background border-t border-border">
+      {/* Background decoration */}
+      <div className="absolute bottom-0 right-0 text-[12vw] font-black text-black opacity-5 dark:text-white dark:opacity-[0.03] whitespace-nowrap pointer-events-none select-none z-0 tracking-tighter text-right leading-none">
+        {t("watermarks.services")}
+      </div>
+
       <div className="w-full px-6 lg:px-12 xl:px-20 max-w-[1920px] mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-20"
+          className="text-right mb-20 border-r-[4px] border-primary pr-6"
         >
-          <div className="inline-block mb-4 px-4 py-1.5 rounded-full border border-accent/30 bg-accent/10 backdrop-blur-sm text-accent font-medium text-sm tracking-wide">
+          <div className="inline-block mb-4 px-3 py-1 border border-primary/50 bg-primary/10 text-primary font-bold text-xs tracking-[0.2em] uppercase font-mono">
             {t("services.badge")}
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 font-heading">{t("services.title")}</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 uppercase tracking-tighter">{t("services.title")}</h2>
+          <p className="text-muted-foreground text-lg max-w-2xl ml-auto font-mono">
             {t("services.subtitle")}
           </p>
         </motion.div>
@@ -166,10 +136,10 @@ export function Services() {
             <motion.li 
               key={service.key} 
               className={service.bentoClass}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: false, amount: 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: "circOut" }}
             >
               <BentoCard service={service} t={t} />
             </motion.li>
