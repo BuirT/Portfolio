@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
-import { ExternalLink, X, ChevronLeft, ChevronRight, Eye } from "lucide-react"
+import { ExternalLink, X, ChevronLeft, ChevronRight } from "lucide-react"
 import { Github } from "@/components/icons"
 import { useTranslation } from "react-i18next"
 
