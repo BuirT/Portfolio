@@ -70,7 +70,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 bg-muted/30">
+    <section id="contact" className="py-20 bg-muted/30 border-t border-border">
       <div className="w-full px-6 lg:px-12 xl:px-20 max-w-[1920px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

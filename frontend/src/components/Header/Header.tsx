@@ -68,7 +68,7 @@ export function Header() {
               e.preventDefault()
               scrollTo("#home")
             }}
-            className="text-2xl font-black font-heading tracking-widest text-[#00f0ff] drop-shadow-[0_0_10px_rgba(0,240,255,0.8)] uppercase"
+            className="text-2xl font-black font-heading tracking-widest text-primary dark:text-[#00f0ff] drop-shadow-sm dark:drop-shadow-[0_0_10px_rgba(0,240,255,0.8)] uppercase"
           >
             BUIRT
           </a>

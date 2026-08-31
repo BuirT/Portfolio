@@ -23,7 +23,7 @@ export function About() {
   return (
     <section id="about" className="py-20 bg-background relative border-t border-border">
       {/* Mechanical Background */}
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,240,255,0.02)_25%,rgba(0,240,255,0.02)_50%,transparent_50%,transparent_75%,rgba(0,240,255,0.02)_75%,rgba(0,240,255,0.02)_100%)] bg-[length:20px_20px] pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.02)_25%,rgba(0,0,0,0.02)_50%,transparent_50%,transparent_75%,rgba(0,0,0,0.02)_75%,rgba(0,0,0,0.02)_100%)] dark:bg-[linear-gradient(45deg,transparent_25%,rgba(0,240,255,0.02)_25%,rgba(0,240,255,0.02)_50%,transparent_50%,transparent_75%,rgba(0,240,255,0.02)_75%,rgba(0,240,255,0.02)_100%)] bg-[length:20px_20px] pointer-events-none" />
 
       <div className="w-full px-6 lg:px-12 xl:px-20 max-w-[1920px] mx-auto relative z-10">
         <motion.div
@@ -33,7 +33,7 @@ export function About() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16 border-b border-border pb-8"
         >
-          <h2 className="text-4xl md:text-6xl font-black mb-4 uppercase tracking-tighter text-foreground drop-shadow-[0_0_15px_rgba(0,240,255,0.3)]">{t("about.title")}</h2>
+          <h2 className="text-4xl md:text-6xl font-black mb-4 uppercase tracking-tighter text-foreground drop-shadow-sm dark:drop-shadow-[0_0_15px_rgba(0,240,255,0.3)]">{t("about.title")}</h2>
           <div className="w-32 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
         </motion.div>
 
@@ -74,7 +74,7 @@ export function About() {
                 <Card key={index} className="border border-border rounded-none shadow-none bg-card/50 backdrop-blur hover:border-primary/50 transition-colors">
                   <CardContent className="p-6 text-center relative overflow-hidden group">
                     <div className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                    <dt className="text-5xl font-black text-primary mb-2 drop-shadow-[0_0_10px_rgba(0,240,255,0.5)] relative z-10">{stat.value}</dt>
+                    <dt className="text-5xl font-black text-primary mb-2 drop-shadow-sm dark:drop-shadow-[0_0_10px_rgba(0,240,255,0.5)] relative z-10">{stat.value}</dt>
                     <dd className="text-xs font-bold text-muted-foreground m-0 uppercase tracking-[0.2em] relative z-10 font-mono">{stat.label}</dd>
                   </CardContent>
                 </Card>

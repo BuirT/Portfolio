@@ -64,14 +64,14 @@ function BentoCard({ service, t }: { service: typeof SERVICES_CONFIG[0], t: any 
       onBlur={() => { setIsFocused(false); setOpacity(0) }}
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={() => setOpacity(0)}
-      className="relative flex flex-col h-full overflow-hidden rounded-none border border-border bg-card/60 p-6 sm:p-8 transition-all duration-300 hover:border-primary/50 group"
+      className="relative flex flex-col h-full overflow-hidden rounded-none border border-black/15 dark:border-border shadow-sm dark:shadow-none bg-card/60 p-6 sm:p-8 transition-all duration-300 hover:border-primary/50 group"
     >
       {/* Background glow tracker */}
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 z-0"
         style={{
           opacity,
-          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(0,240,255,.15), transparent 40%)`,
+          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, var(--hover-glow, rgba(0,240,255,.15)), transparent 40%)`,
         }}
       />
       
@@ -94,40 +94,41 @@ function BentoCard({ service, t }: { service: typeof SERVICES_CONFIG[0], t: any 
 
         {/* Decorative Visuals for large cards (Web App) */}
         {service.key === 'web' && (
-          <div className="relative flex-grow w-full mb-6 rounded-md border border-primary/20 bg-[#020808] overflow-hidden flex items-center justify-center min-h-[180px] group/web">
+          <div className="relative flex-grow w-full mb-6 rounded-md border border-primary/20 bg-slate-50 dark:bg-[#020808] overflow-hidden flex items-center justify-center min-h-[180px] group/web">
              {/* Cyberpunk Grid Background */}
-             <div className="absolute inset-0 bg-[linear-gradient(rgba(0,240,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,240,255,0.05)_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]" />
+             <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.05)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(0,240,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,240,255,0.05)_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]" />
              
              {/* Abstract floating UI panels */}
              <motion.div 
                animate={{ y: [0, -5, 0] }}
                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-               className="w-[85%] h-[75%] border border-[#00f0ff]/30 bg-black/60 shadow-[0_0_15px_rgba(0,240,255,0.1)] flex flex-col relative z-10 backdrop-blur-sm group-hover/web:border-[#00f0ff]/60 group-hover/web:shadow-[0_0_25px_rgba(0,240,255,0.2)] transition-all duration-500 rounded-sm"
+               className="w-[85%] h-[75%] border border-blue-600/30 dark:border-[#00f0ff]/30 bg-white dark:bg-black/60 shadow-[0_5px_20px_rgba(37,99,235,0.15)] dark:shadow-[0_0_15px_rgba(0,240,255,0.1)] flex flex-col relative z-10 backdrop-blur-md group-hover/web:border-blue-600/50 dark:group-hover/web:border-[#00f0ff]/60 group-hover/web:shadow-[0_8px_30px_rgba(37,99,235,0.25)] dark:group-hover/web:shadow-[0_0_25px_rgba(0,240,255,0.2)] transition-all duration-500 rounded-lg dark:rounded-sm overflow-hidden"
              >
                {/* Browser Bar */}
-               <div className="h-5 border-b border-[#00f0ff]/30 bg-[#00f0ff]/5 flex items-center px-2 gap-1.5">
-                 <div className="w-1.5 h-1.5 rounded-full bg-[#00f0ff]/30" />
-                 <div className="w-1.5 h-1.5 rounded-full bg-[#00f0ff]/30" />
-                 <div className="w-1.5 h-1.5 rounded-full bg-[#00f0ff]/30" />
-                 <div className="ml-auto w-16 h-1 bg-[#00f0ff]/20 rounded-full" />
+               <div className="h-5 border-b border-blue-600/20 dark:border-[#00f0ff]/30 bg-blue-600/5 dark:bg-[#00f0ff]/5 flex items-center px-2.5 gap-1.5">
+                 <div className="w-2 h-2 rounded-full bg-red-400 dark:bg-[#00f0ff]/30" />
+                 <div className="w-2 h-2 rounded-full bg-yellow-400 dark:bg-[#00f0ff]/30" />
+                 <div className="w-2 h-2 rounded-full bg-green-400 dark:bg-[#00f0ff]/30" />
+                 <div className="ml-auto w-16 h-1.5 bg-blue-600/15 dark:bg-[#00f0ff]/20 rounded-full" />
                </div>
+               
                {/* Code / Content lines */}
-               <div className="flex-1 p-4 flex flex-col gap-3 relative overflow-hidden">
-                 <div className="flex gap-2">
-                   <div className="w-8 h-8 rounded border border-[#00f0ff]/30 bg-[#00f0ff]/10" />
+               <div className="flex-1 p-4 flex flex-col gap-3 relative overflow-hidden bg-slate-50/50 dark:bg-transparent">
+                 <div className="flex gap-3">
+                   <div className="w-10 h-10 rounded-md border border-blue-600/20 dark:border-[#00f0ff]/30 bg-blue-600/10 dark:bg-[#00f0ff]/10 flex-shrink-0" />
                    <div className="flex-1 flex flex-col gap-2 justify-center">
-                      <div className="w-3/4 h-1.5 bg-[#00f0ff]/40 rounded-full" />
-                      <div className="w-1/2 h-1.5 bg-[#00f0ff]/20 rounded-full" />
+                      <div className="w-3/4 h-2 bg-blue-600/30 dark:bg-[#00f0ff]/40 rounded-full" />
+                      <div className="w-1/2 h-2 bg-blue-600/15 dark:bg-[#00f0ff]/20 rounded-full" />
                    </div>
                  </div>
-                 <div className="w-full h-1.5 bg-[#00f0ff]/10 rounded-full" />
-                 <div className="w-5/6 h-1.5 bg-[#00f0ff]/10 rounded-full" />
+                 <div className="w-full h-2 bg-blue-600/10 dark:bg-[#00f0ff]/10 rounded-full mt-2" />
+                 <div className="w-5/6 h-2 bg-blue-600/10 dark:bg-[#00f0ff]/10 rounded-full" />
                  
                  {/* Floating scanner line */}
                  <motion.div
                    animate={{ top: ["0%", "100%", "0%"] }}
                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                   className="absolute left-0 right-0 h-[2px] bg-[#00f0ff] shadow-[0_0_8px_#00f0ff] opacity-50 pointer-events-none"
+                   className="absolute left-0 right-0 h-[2px] bg-blue-600/50 dark:bg-[#00f0ff] shadow-[0_0_8px_rgba(37,99,235,0.5)] dark:shadow-[0_0_8px_#00f0ff] opacity-50 pointer-events-none"
                  />
                </div>
              </motion.div>
@@ -136,18 +137,18 @@ function BentoCard({ service, t }: { service: typeof SERVICES_CONFIG[0], t: any 
              <motion.div
                animate={{ y: [0, 5, 0], x: [0, 2, 0] }}
                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-               className="absolute -right-4 top-8 w-16 h-20 border border-[#00f0ff]/20 bg-black/80 backdrop-blur-md rounded-sm z-20 flex flex-col gap-2 p-2"
+               className="absolute -right-4 top-8 w-20 h-24 border border-blue-600/20 dark:border-[#00f0ff]/20 bg-white/95 dark:bg-black/80 backdrop-blur-xl shadow-[0_5px_15px_rgba(37,99,235,0.1)] dark:shadow-none rounded-lg dark:rounded-sm z-20 flex flex-col gap-2 p-3"
              >
-                <div className="w-full h-1/2 bg-[#00f0ff]/10 rounded-sm border border-[#00f0ff]/20" />
-                <div className="w-3/4 h-1 bg-[#00f0ff]/30 rounded-full mt-1" />
-                <div className="w-1/2 h-1 bg-[#00f0ff]/20 rounded-full" />
+                <div className="w-full h-1/2 bg-gradient-to-br from-blue-600/20 to-blue-600/5 dark:from-[#00f0ff]/10 dark:to-[#00f0ff]/5 rounded-md border border-blue-600/20 dark:border-[#00f0ff]/20" />
+                <div className="w-3/4 h-1.5 bg-blue-600/30 dark:bg-[#00f0ff]/30 rounded-full mt-1" />
+                <div className="w-1/2 h-1.5 bg-blue-600/15 dark:bg-[#00f0ff]/20 rounded-full" />
              </motion.div>
           </div>
         )}
 
         <ul className="flex flex-wrap gap-2 pt-6 mt-auto m-0 p-0 list-none border-t border-border">
           {service.tech.map((t) => (
-            <li key={t} className="text-xs font-bold text-muted-foreground bg-background border border-border px-3 py-1 rounded-none font-mono tracking-wider">
+            <li key={t} className="text-xs font-bold text-muted-foreground bg-background border border-black/15 dark:border-border shadow-sm dark:shadow-none px-3 py-1 rounded-none font-mono tracking-wider">
               {t}
             </li>
           ))}

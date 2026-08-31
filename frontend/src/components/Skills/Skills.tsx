@@ -82,13 +82,13 @@ function SkillBar({ name, level, colorClass }: { name: string; level: number; co
     <li ref={ref as any} className="mb-6">
       <div className="flex justify-between mb-2">
         <span className="text-sm font-bold text-foreground/90 font-mono tracking-wider">{name}</span>
-        <span className={`text-sm font-black bg-clip-text text-transparent bg-gradient-to-r ${colorClass} font-mono`}>{progress}%</span>
+        <span className={`text-sm font-black text-primary font-mono`}>{progress}%</span>
       </div>
       <div className="h-[4px] w-full bg-background border border-border overflow-hidden relative">
         {/* Notch markers for gauge look */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--foreground)_1px,transparent_1px)] opacity-10 bg-[size:10%_100%] pointer-events-none z-10" />
         <div 
-          className={`h-full bg-gradient-to-r ${colorClass} transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(0,240,255,0.5)]`}
+          className={`h-full bg-gradient-to-r ${colorClass} transition-all duration-1000 ease-out shadow-sm dark:shadow-[0_0_15px_rgba(0,240,255,0.5)]`}
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -117,14 +117,14 @@ function BentoSkillCard({ category, title }: { category: typeof SKILLS_CONFIG[0]
       onBlur={() => { setIsFocused(false); setOpacity(0) }}
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={() => setOpacity(0)}
-      className="relative flex flex-col h-full overflow-hidden rounded-none border border-border bg-card/60 p-6 sm:p-8 transition-all duration-300 hover:border-primary/50 group"
+      className="relative flex flex-col h-full overflow-hidden rounded-none border border-black/15 dark:border-border bg-card/60 p-6 sm:p-8 transition-all duration-300 hover:border-primary/50 shadow-sm dark:shadow-none group"
     >
       {/* Glow effect */}
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 z-0"
         style={{
           opacity,
-          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(0,240,255,.1), transparent 40%)`,
+          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, var(--hover-glow, rgba(0,240,255,.1)), transparent 40%)`,
         }}
       />
       
@@ -143,10 +143,7 @@ function BentoSkillCard({ category, title }: { category: typeof SKILLS_CONFIG[0]
         </ul>
       </div>
       
-      {/* Background decoration */}
-      <div className="absolute -bottom-10 -right-10 text-[120px] font-black text-black opacity-5 dark:text-white dark:opacity-[0.03] select-none pointer-events-none z-0 rotate-12">
-        {category.key.substring(0, 2).toUpperCase()}
-      </div>
+      {/* Background decoration removed per user request */}
     </article>
   )
 }
